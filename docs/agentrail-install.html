@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AgentRail 安装中心</title>
+  <meta name="description" content="AgentRail 官方安装中心：正式安装页、稳定下载地址、一行安装命令、验证步骤。" />
+  <style>
+    :root {
+      --bg: #07111f;
+      --panel: rgba(10, 20, 38, 0.88);
+      --line: rgba(135, 164, 210, 0.20);
+      --text: #edf4ff;
+      --muted: #9db0cd;
+      --green: #7ef0b8;
+      --cyan: #7fd8ff;
+      --violet: #c7a6ff;
+      --amber: #ffd38a;
+      --shadow: 0 20px 70px rgba(0, 0, 0, 0.35);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(70, 121, 255, 0.18), transparent 32%),
+        radial-gradient(circle at top right, rgba(126, 240, 184, 0.12), transparent 28%),
+        linear-gradient(180deg, #06101d 0%, #081425 100%);
+      min-height: 100vh;
+    }
+    .wrap { max-width: 1120px; margin: 0 auto; padding: 40px 24px 64px; }
+    .hero, .card {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(12px);
+    }
+    .hero { padding: 34px; margin-bottom: 20px; overflow: hidden; position: relative; }
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: auto -60px -60px auto;
+      width: 260px;
+      height: 260px;
+      border-radius: 999px;
+      background: radial-gradient(circle, rgba(127, 216, 255, 0.16) 0%, rgba(127, 216, 255, 0) 70%);
+      pointer-events: none;
+    }
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(126, 240, 184, 0.10);
+      color: var(--green);
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+    h1 { margin: 18px 0 12px; font-size: clamp(34px, 5vw, 58px); line-height: 1.05; }
+    h2 { margin: 0 0 14px; font-size: 22px; }
+    h3 { margin: 0 0 10px; font-size: 17px; }
+    p, li { color: var(--muted); line-height: 1.75; }
+    .hero p { max-width: 760px; font-size: 17px; }
+    .grid { display: grid; gap: 20px; grid-template-columns: repeat(12, 1fr); }
+    .card { padding: 24px; }
+    .span-7 { grid-column: span 7; }
+    .span-5 { grid-column: span 5; }
+    .span-4 { grid-column: span 4; }
+    .span-8 { grid-column: span 8; }
+    .actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 22px; }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 14px 18px;
+      border-radius: 14px;
+      text-decoration: none;
+      font-weight: 800;
+      transition: transform 0.16s ease, opacity 0.16s ease;
+    }
+    .btn:hover { transform: translateY(-1px); opacity: 0.96; }
+    .btn-primary { background: linear-gradient(135deg, var(--green), #b4ffd4); color: #042516; }
+    .btn-secondary { background: linear-gradient(135deg, var(--cyan), #cdeeff); color: #032237; }
+    .btn-ghost { background: linear-gradient(135deg, var(--violet), #e5d6ff); color: #220c3d; }
+    .metric {
+      display: grid;
+      gap: 6px;
+      padding: 16px;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+    .metric strong { font-size: 18px; color: var(--text); }
+    .metric span { color: var(--muted); font-size: 14px; }
+    pre, code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    }
+    pre {
+      margin: 0;
+      padding: 16px 18px;
+      overflow: auto;
+      border-radius: 16px;
+      background: #04101d;
+      border: 1px solid rgba(127, 216, 255, 0.14);
+      color: #dff1ff;
+      line-height: 1.65;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+    .step-list { display: grid; gap: 14px; margin-top: 14px; }
+    .step {
+      padding: 16px;
+      border-radius: 18px;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.06);
+    }
+    .step small { color: var(--amber); font-weight: 800; display: block; margin-bottom: 8px; letter-spacing: 0.04em; }
+    ul.clean { margin: 0; padding-left: 18px; }
+    .footer { margin-top: 18px; color: #6f84a7; font-size: 13px; }
+    @media (max-width: 900px) {
+      .grid { grid-template-columns: 1fr; }
+      .span-7, .span-5, .span-4, .span-8 { grid-column: span 1; }
+      .wrap { padding: 24px 16px 40px; }
+      .hero, .card { padding: 20px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <section class="hero">
+      <div class="eyebrow">AgentRail · Official Install Center</div>
+      <h1>把一个工作项，稳定变成可执行、可验证、可恢复的交付流水线</h1>
+      <p>
+        AgentRail 是面向 Hermes 的专业级技能与工作流运行时交付包。
+        对外你拿到的是 AgentRail；底层真正负责推进、回退、阻塞治理和恢复执行的是 Perpetual Engine。
+        这一页提供稳定安装入口、完整测试包和验证命令。
+      </p>
+      <div class="actions">
+        <a class="btn btn-primary" href="https://github.com/BlueMarlin1999/agentrail-public-assets/releases/download/v0.1.0-beta.1/AgentRail-Friend-Test-Pack-v0.1.0-beta.1.zip">下载 ZIP 测试包</a>
+        <a class="btn btn-secondary" href="https://github.com/BlueMarlin1999/agentrail-public-assets/releases/download/v0.1.0-beta.1/AgentRail-Friend-Test-Pack-v0.1.0-beta.1.tar.gz">下载 tar.gz 测试包</a>
+        <a class="btn btn-ghost" href="./install-online.sh">打开在线安装脚本</a>
+      </div>
+    </section>
+
+    <section class="grid">
+      <div class="card span-7">
+        <h2>一行安装</h2>
+        <p>默认安装到 default profile：</p>
+        <pre>curl -fsSL https://bluemarlin1999.github.io/agentrail-public-assets/install-online.sh | bash</pre>
+        <p style="margin-top:14px;">安装到指定 profile：</p>
+        <pre>curl -fsSL https://bluemarlin1999.github.io/agentrail-public-assets/install-online.sh | bash -s -- myprofile</pre>
+      </div>
+      <div class="card span-5">
+        <h2>当前版本</h2>
+        <div class="grid" style="grid-template-columns: 1fr 1fr; gap: 12px;">
+          <div class="metric"><strong>v0.1.0-beta.1</strong><span>当前公开分发版本</span></div>
+          <div class="metric"><strong>Beta</strong><span>发布通道</span></div>
+          <div class="metric"><strong>Skill + Runtime</strong><span>不是文档空包</span></div>
+          <div class="metric"><strong>可测试</strong><span>含完整演示与验证命令</span></div>
+        </div>
+      </div>
+
+      <div class="card span-4">
+        <h2>里面有什么</h2>
+        <ul class="clean">
+          <li>Hermes Skill 安装目录</li>
+          <li>Perpetual Engine runtime</li>
+          <li>CLI、tests、examples</li>
+          <li>使用手册、产品介绍、演示脚本</li>
+          <li>完整 Friend Test Pack</li>
+        </ul>
+      </div>
+      <div class="card span-8">
+        <h2>怎么工作</h2>
+        <div class="step-list">
+          <div class="step">
+            <small>STEP 01</small>
+            AgentRail 接收工作项，按角色分工把任务送入底层执行链路。
+          </div>
+          <div class="step">
+            <small>STEP 02</small>
+            Perpetual Engine 驱动状态机推进，负责实现、检查、测试、评审、回退重试和阻塞治理。
+          </div>
+          <div class="step">
+            <small>STEP 03</small>
+            Operator 可以查看摘要、恢复执行、重置重试计数，并对失败阶段做人工介入。
+          </div>
+        </div>
+      </div>
+
+      <div class="card span-7">
+        <h2>验证顺序</h2>
+        <pre>python3 perpetual_engine/cli.py version
+python3 perpetual_engine/cli.py doctor
+python3 -m unittest discover -s tests -v
+PERPETUAL_REQUIRED_TOOLS= PERPETUAL_EXECUTION_MODE=mock ./run_full_demo.sh</pre>
+      </div>
+      <div class="card span-5">
+        <h2>下载入口</h2>
+        <ul class="clean">
+          <li><a href="https://github.com/BlueMarlin1999/agentrail-public-assets/releases/tag/v0.1.0-beta.1">GitHub Release 页面</a></li>
+          <li><a href="https://github.com/BlueMarlin1999/agentrail-public-assets/releases/download/v0.1.0-beta.1/AgentRail-Friend-Test-Pack-v0.1.0-beta.1.zip">ZIP 完整测试包</a></li>
+          <li><a href="https://github.com/BlueMarlin1999/agentrail-public-assets/releases/download/v0.1.0-beta.1/AgentRail-Friend-Test-Pack-v0.1.0-beta.1.tar.gz">tar.gz 完整测试包</a></li>
+          <li><a href="https://github.com/BlueMarlin1999/agentrail-public-assets">公开分发仓库</a></li>
+        </ul>
+      </div>
+    </section>
+
+    <div class="footer">
+      固定域名版采用 GitHub Pages；如需自定义独立域名，可在这个仓库上继续绑定 CNAME。
+    </div>
+  </div>
+</body>
+</html>

@@ -3,17 +3,25 @@
 Current stable host:
 - https://bluemarlin1999.github.io/agentrail-public-assets/
 
-To switch to your own domain later:
-1. Choose a hostname, for example `download.agentrail.ai`
-2. Copy `docs/CNAME.example` to `docs/CNAME`
-3. Replace the content with your real hostname
-4. In DNS, point the hostname to GitHub Pages
-5. Verify these paths after propagation:
+Chosen custom domain:
+- https://agentrail.tech/
+
+Repository-side setup is now prepared with `docs/CNAME = agentrail.tech`.
+
+To finish the cutover:
+1. Open your DNS provider for `agentrail.tech`
+2. If your provider supports apex flattening / ALIAS / ANAME, point the root domain to `BlueMarlin1999.github.io`
+3. If you use standard GitHub Pages apex setup, add these A records:
+   - `185.199.108.153`
+   - `185.199.109.153`
+   - `185.199.110.153`
+   - `185.199.111.153`
+4. Optional but recommended: add `www` as `CNAME -> BlueMarlin1999.github.io`
+5. Wait for DNS propagation
+6. Verify these paths:
    - `/agentrail-install.html`
    - `/install-online.sh`
-   - GitHub release download links
+   - `/release.html`
+   - `/pricing.html`
 
-Recommended DNS records for GitHub Pages:
-- `CNAME download -> BlueMarlin1999.github.io`
-
-If you want apex/root-domain hosting instead of a subdomain, use ALIAS/ANAME support from your DNS provider.
+If you later decide to move downloads to a subdomain such as `download.agentrail.tech`, replace the CNAME file accordingly and point that hostname to `BlueMarlin1999.github.io`.

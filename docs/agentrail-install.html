@@ -1,224 +1,63 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>AgentRail 安装中心</title>
-  <meta name="description" content="AgentRail 官方安装中心：正式安装页、稳定下载地址、一行安装命令、验证步骤。" />
+  <title>AgentRail Install Center</title>
+  <meta name="description" content="Install AgentRail, download the full test pack, and verify the runtime with a stable public workflow." />
   <style>
-    :root {
-      --bg: #07111f;
-      --panel: rgba(10, 20, 38, 0.88);
-      --line: rgba(135, 164, 210, 0.20);
-      --text: #edf4ff;
-      --muted: #9db0cd;
-      --green: #7ef0b8;
-      --cyan: #7fd8ff;
-      --violet: #c7a6ff;
-      --amber: #ffd38a;
-      --shadow: 0 20px 70px rgba(0, 0, 0, 0.35);
-    }
-    * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      color: var(--text);
-      background:
-        radial-gradient(circle at top left, rgba(70, 121, 255, 0.18), transparent 32%),
-        radial-gradient(circle at top right, rgba(126, 240, 184, 0.12), transparent 28%),
-        linear-gradient(180deg, #06101d 0%, #081425 100%);
-      min-height: 100vh;
-    }
-    .wrap { max-width: 1120px; margin: 0 auto; padding: 40px 24px 64px; }
-    .hero, .card {
-      background: var(--panel);
-      border: 1px solid var(--line);
-      border-radius: 24px;
-      box-shadow: var(--shadow);
-      backdrop-filter: blur(12px);
-    }
-    .hero { padding: 34px; margin-bottom: 20px; overflow: hidden; position: relative; }
-    .hero::after {
-      content: "";
-      position: absolute;
-      inset: auto -60px -60px auto;
-      width: 260px;
-      height: 260px;
-      border-radius: 999px;
-      background: radial-gradient(circle, rgba(127, 216, 255, 0.16) 0%, rgba(127, 216, 255, 0) 70%);
-      pointer-events: none;
-    }
-    .eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 8px 14px;
-      border-radius: 999px;
-      background: rgba(126, 240, 184, 0.10);
-      color: var(--green);
-      font-size: 13px;
-      font-weight: 700;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-    }
-    h1 { margin: 18px 0 12px; font-size: clamp(34px, 5vw, 58px); line-height: 1.05; }
-    h2 { margin: 0 0 14px; font-size: 22px; }
-    h3 { margin: 0 0 10px; font-size: 17px; }
-    p, li { color: var(--muted); line-height: 1.75; }
-    .hero p { max-width: 760px; font-size: 17px; }
-    .grid { display: grid; gap: 20px; grid-template-columns: repeat(12, 1fr); }
-    .card { padding: 24px; }
-    .span-7 { grid-column: span 7; }
-    .span-5 { grid-column: span 5; }
-    .span-4 { grid-column: span 4; }
-    .span-8 { grid-column: span 8; }
-    .actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 22px; }
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      padding: 14px 18px;
-      border-radius: 14px;
-      text-decoration: none;
-      font-weight: 800;
-      transition: transform 0.16s ease, opacity 0.16s ease;
-    }
-    .btn:hover { transform: translateY(-1px); opacity: 0.96; }
-    .btn-primary { background: linear-gradient(135deg, var(--green), #b4ffd4); color: #042516; }
-    .btn-secondary { background: linear-gradient(135deg, var(--cyan), #cdeeff); color: #032237; }
-    .btn-ghost { background: linear-gradient(135deg, var(--violet), #e5d6ff); color: #220c3d; }
-    .metric {
-      display: grid;
-      gap: 6px;
-      padding: 16px;
-      border-radius: 18px;
-      background: rgba(255,255,255,0.03);
-      border: 1px solid rgba(255,255,255,0.06);
-    }
-    .metric strong { font-size: 18px; color: var(--text); }
-    .metric span { color: var(--muted); font-size: 14px; }
-    pre, code {
-      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-    }
-    pre {
-      margin: 0;
-      padding: 16px 18px;
-      overflow: auto;
-      border-radius: 16px;
-      background: #04101d;
-      border: 1px solid rgba(127, 216, 255, 0.14);
-      color: #dff1ff;
-      line-height: 1.65;
-      white-space: pre-wrap;
-      word-break: break-word;
-    }
-    .step-list { display: grid; gap: 14px; margin-top: 14px; }
-    .step {
-      padding: 16px;
-      border-radius: 18px;
-      background: rgba(255,255,255,0.03);
-      border: 1px solid rgba(255,255,255,0.06);
-    }
-    .step small { color: var(--amber); font-weight: 800; display: block; margin-bottom: 8px; letter-spacing: 0.04em; }
-    ul.clean { margin: 0; padding-left: 18px; }
-    .footer { margin-top: 18px; color: #6f84a7; font-size: 13px; }
-    @media (max-width: 900px) {
-      .grid { grid-template-columns: 1fr; }
-      .span-7, .span-5, .span-4, .span-8 { grid-column: span 1; }
-      .wrap { padding: 24px 16px 40px; }
-      .hero, .card { padding: 20px; }
-    }
+    :root { --bg:#07111d; --bg-soft:#0c1728; --panel:rgba(11,23,41,.86); --panel-2:rgba(14,29,49,.92); --line:rgba(141,176,230,.18); --text:#eef4ff; --muted:#9eb0ce; --green:#8ff1bc; --cyan:#7fd8ff; --violet:#c7b2ff; --amber:#ffd48f; --shadow:0 24px 70px rgba(0,0,0,.34); --hero-a:rgba(86,134,255,.22); --hero-b:rgba(143,241,188,.14); }
+    *{box-sizing:border-box} html,body{margin:0;padding:0}
+    body{font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:var(--text);background:radial-gradient(circle at top left,var(--hero-a),transparent 30%),radial-gradient(circle at top right,var(--hero-b),transparent 26%),linear-gradient(180deg,var(--bg) 0%,var(--bg-soft) 100%);min-height:100vh;transition:background .18s ease,color .18s ease}
+    body.theme-light{--bg:#eff4ff;--bg-soft:#dfeaf9;--panel:rgba(255,255,255,.86);--panel-2:rgba(249,251,255,.94);--line:rgba(62,92,142,.12);--text:#091525;--muted:#4d627f;--green:#157f51;--cyan:#135d89;--violet:#5b45b5;--amber:#8a5900;--shadow:0 24px 60px rgba(61,81,122,.16);--hero-a:rgba(98,135,255,.18);--hero-b:rgba(127,216,255,.12)}
+    body.theme-sunset{--bg:#160c18;--bg-soft:#28111b;--panel:rgba(37,18,27,.84);--panel-2:rgba(49,20,31,.9);--line:rgba(255,180,158,.18);--text:#fff1ec;--muted:#d6ada4;--green:#ffc37f;--cyan:#ff8aa5;--violet:#ffb3e8;--amber:#ffd29c;--shadow:0 24px 80px rgba(0,0,0,.36);--hero-a:rgba(255,122,89,.22);--hero-b:rgba(255,200,120,.16)}
+    a{color:inherit}.wrap{max-width:1180px;margin:0 auto;padding:26px 20px 60px}.topbar{display:flex;align-items:center;justify-content:space-between;gap:20px;margin-bottom:18px}.brand{display:flex;align-items:center;gap:12px;font-weight:800;letter-spacing:.02em}.brand-mark{width:40px;height:40px;border-radius:14px;background:linear-gradient(135deg,var(--green),var(--cyan));box-shadow:inset 0 1px 0 rgba(255,255,255,.3),0 12px 24px rgba(0,0,0,.22)}
+    .top-controls{display:flex;align-items:flex-start;gap:12px;flex-wrap:wrap;justify-content:flex-end}.control-group{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:10px 12px;box-shadow:var(--shadow);backdrop-filter:blur(12px)}.control-label{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:8px;font-weight:800}.chips{display:flex;gap:8px;flex-wrap:wrap}.chip{border:1px solid var(--line);background:rgba(255,255,255,.04);color:var(--text);border-radius:999px;padding:7px 10px;font-size:12px;font-weight:700;cursor:pointer}.chip.active{background:linear-gradient(135deg,var(--cyan),var(--violet));color:#06111d;border-color:transparent}
+    .hero,.card{background:var(--panel);border:1px solid var(--line);border-radius:28px;box-shadow:var(--shadow);backdrop-filter:blur(12px)}.hero{padding:34px;position:relative;overflow:hidden}.hero::after{content:"";position:absolute;right:-40px;bottom:-40px;width:260px;height:260px;border-radius:999px;background:radial-gradient(circle,rgba(255,255,255,.11) 0%,rgba(255,255,255,0) 70%);pointer-events:none}
+    .eyebrow{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border-radius:999px;background:rgba(143,241,188,.1);color:var(--green);font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.07em}h1{margin:18px 0 14px;font-size:clamp(36px,5vw,62px);line-height:1.02;max-width:900px}.hero-copy{max-width:780px;font-size:18px;line-height:1.8;color:var(--muted)}
+    .navline{margin:0 0 12px;color:#d9e7ff;font-size:14px}.actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:24px}.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;text-decoration:none;padding:14px 18px;border-radius:15px;font-weight:900;border:1px solid transparent}.btn-primary{background:linear-gradient(135deg,var(--green),#cfffe0);color:#062516}.btn-secondary{background:linear-gradient(135deg,var(--cyan),#d6f4ff);color:#032236}.btn-ghost{border-color:var(--line);background:rgba(255,255,255,.03);color:var(--text)}
+    .grid{display:grid;grid-template-columns:repeat(12,1fr);gap:18px;margin-top:18px}.card{padding:24px}.span-4{grid-column:span 4}.span-5{grid-column:span 5}.span-6{grid-column:span 6}.span-7{grid-column:span 7}.span-8{grid-column:span 8}.span-12{grid-column:span 12} h2{margin:0 0 12px;font-size:24px} h3{margin:0 0 10px;font-size:18px} p,li{color:var(--muted);line-height:1.75} pre{margin:0;padding:16px 18px;overflow:auto;border-radius:16px;background:#04101d;border:1px solid rgba(127,216,255,.14);color:#dff1ff;line-height:1.65;white-space:pre-wrap;word-break:break-word;font-family:ui-monospace,SFMono-Regular,Menlo,monospace} .metric{padding:16px;border-radius:18px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06)} .metric strong{display:block;font-size:20px;color:var(--text);margin-bottom:6px}.list{padding-left:18px;margin:0}.footer{margin-top:18px;color:var(--muted);font-size:13px;text-align:center}
+    @media (max-width:980px){.topbar{flex-direction:column;align-items:stretch}.top-controls{justify-content:flex-start}.grid{grid-template-columns:1fr}.span-4,.span-5,.span-6,.span-7,.span-8,.span-12{grid-column:span 1}.hero{padding:24px}h1{font-size:42px}}
   </style>
 </head>
-<body>
+<body class="theme-dark">
   <div class="wrap">
-    <section class="hero">
-      <div class="eyebrow">AgentRail · Official Install Center</div>
-      <h1>把一个工作项，稳定变成可执行、可验证、可恢复的交付流水线</h1>
-      <p style="margin:0 0 10px;color:#d9e7ff;font-size:14px;letter-spacing:.01em;">导航：<a href="./agentrail-install.html">安装</a> · <a href="./release.html">Release</a> · <a href="./pricing.html">价格</a> · <a href="./root-domain-redirect.html">域名收口</a></p>
-      <p>
-        AgentRail 是面向 Hermes 的专业级技能与工作流运行时交付包。
-        对外你拿到的是 AgentRail；底层真正负责推进、回退、阻塞治理和恢复执行的是 Perpetual Engine。
-        这一页提供稳定安装入口、完整测试包和验证命令。
-      </p>
-      <div class="actions">
-        <a class="btn btn-primary" href="https://github.com/BlueMarlin1999/agentrail-public-assets/releases/download/v0.1.0-beta.1/AgentRail-Friend-Test-Pack-v0.1.0-beta.1.zip">下载 ZIP 测试包</a>
-        <a class="btn btn-secondary" href="https://github.com/BlueMarlin1999/agentrail-public-assets/releases/download/v0.1.0-beta.1/AgentRail-Friend-Test-Pack-v0.1.0-beta.1.tar.gz">下载 tar.gz 测试包</a>
-        <a class="btn btn-ghost" href="./install-online.sh">打开在线安装脚本</a>
-        <a class="btn btn-secondary" href="./release.html">查看发售页</a>
-        <a class="btn btn-ghost" href="./pricing.html">查看价格页</a>
-        <a class="btn btn-secondary" href="./root-domain-redirect.html">查看域名收口</a>
+    <div class="topbar">
+      <div class="brand"><div class="brand-mark"></div><div><div style="font-size:17px;">AgentRail</div><div style="font-size:12px;color:var(--muted);font-weight:700;">Operational multi-agent delivery</div></div></div>
+      <div class="top-controls">
+        <div class="control-group"><div class="control-label">Language</div><div class="chips" id="lang-chips"><button class="chip active" data-lang="en">EN</button><button class="chip" data-lang="zh">中文</button><button class="chip" data-lang="ja">日本語</button><button class="chip" data-lang="ko">한국어</button><button class="chip" data-lang="es">ES</button><button class="chip" data-lang="de">DE</button><button class="chip" data-lang="ar">AR</button></div></div>
+        <div class="control-group"><div class="control-label">Background</div><div class="chips" id="theme-chips"><button class="chip active" data-theme="dark">Night</button><button class="chip" data-theme="light">Light</button><button class="chip" data-theme="sunset">Sunset</button></div></div>
       </div>
+    </div>
+
+    <section class="hero">
+      <div class="navline"><a href="./">Home</a> · <a href="./agentrail-install.html">Install</a> · <a href="./release.html">Release</a> · <a href="./pricing.html">Pricing</a> · <a href="./root-domain-redirect.html">Domain</a></div>
+      <div class="eyebrow" data-i18n="eyebrow">Official Install Center</div>
+      <h1 data-i18n="heroTitle">Install AgentRail, download the full release bundle, and verify the runtime in one place.</h1>
+      <p class="hero-copy" data-i18n="heroCopy">This page is the stable public entry for installing the AgentRail skill, downloading the complete Friend Test Pack, and running the documented verification flow for Perpetual Engine.</p>
+      <div class="actions"><a class="btn btn-primary" href="./install-online.sh" data-i18n="ctaScript">Open installer script</a><a class="btn btn-secondary" href="./release.html" data-i18n="ctaRelease">Open Release Center</a><a class="btn btn-ghost" href="./pricing.html" data-i18n="ctaPricing">View Pricing</a></div>
     </section>
 
     <section class="grid">
-      <div class="card span-7">
-        <h2>一行安装</h2>
-        <p>默认安装到 default profile：</p>
-        <pre>curl -fsSL https://www.agentrail.tech/install-online.sh | bash</pre>
-        <p style="margin-top:14px;">安装到指定 profile：</p>
-        <pre>curl -fsSL https://www.agentrail.tech/install-online.sh | bash -s -- myprofile</pre>
-      </div>
-      <div class="card span-5">
-        <h2>当前版本</h2>
-        <div class="grid" style="grid-template-columns: 1fr 1fr; gap: 12px;">
-          <div class="metric"><strong>v0.1.0-beta.1</strong><span>当前公开分发版本</span></div>
-          <div class="metric"><strong>Beta</strong><span>发布通道</span></div>
-          <div class="metric"><strong>Skill + Runtime</strong><span>不是文档空包</span></div>
-          <div class="metric"><strong>可测试</strong><span>含完整演示与验证命令</span></div>
-        </div>
-      </div>
-
-      <div class="card span-4">
-        <h2>里面有什么</h2>
-        <ul class="clean">
-          <li>Hermes Skill 安装目录</li>
-          <li>Perpetual Engine runtime</li>
-          <li>CLI、tests、examples</li>
-          <li>使用手册、产品介绍、演示脚本</li>
-          <li>完整 Friend Test Pack</li>
-        </ul>
-      </div>
-      <div class="card span-8">
-        <h2>怎么工作</h2>
-        <div class="step-list">
-          <div class="step">
-            <small>STEP 01</small>
-            AgentRail 接收工作项，按角色分工把任务送入底层执行链路。
-          </div>
-          <div class="step">
-            <small>STEP 02</small>
-            Perpetual Engine 驱动状态机推进，负责实现、检查、测试、评审、回退重试和阻塞治理。
-          </div>
-          <div class="step">
-            <small>STEP 03</small>
-            Operator 可以查看摘要、恢复执行、重置重试计数，并对失败阶段做人工介入。
-          </div>
-        </div>
-      </div>
-
-      <div class="card span-7">
-        <h2>验证顺序</h2>
-        <pre>python3 perpetual_engine/cli.py version
+      <div class="card span-7"><h2 data-i18n="installTitle">One-line install</h2><p data-i18n="installBody1">Install into the default profile:</p><pre>curl -fsSL https://www.agentrail.tech/install-online.sh | bash</pre><p style="margin-top:14px;" data-i18n="installBody2">Install into a named profile:</p><pre>curl -fsSL https://www.agentrail.tech/install-online.sh | bash -s -- myprofile</pre></div>
+      <div class="card span-5"><h2 data-i18n="versionTitle">Current release</h2><div class="metric"><strong>v0.1.0-beta.1</strong><span data-i18n="versionBody">Public beta release with live install, release assets, and verification flow.</span></div></div>
+      <div class="card span-4"><h2 data-i18n="includesTitle">What you get</h2><ul class="list"><li data-i18n="includes1">Installable Hermes skill package</li><li data-i18n="includes2">Perpetual Engine runtime bundle</li><li data-i18n="includes3">CLI, tests, examples, and demo scripts</li><li data-i18n="includes4">Product overview and manuals</li><li data-i18n="includes5">Operator recovery workflow</li></ul></div>
+      <div class="card span-8"><h2 data-i18n="verifyTitle">Verification flow</h2><pre>python3 perpetual_engine/cli.py version
 python3 perpetual_engine/cli.py doctor
 python3 -m unittest discover -s tests -v
-PERPETUAL_REQUIRED_TOOLS= PERPETUAL_EXECUTION_MODE=mock ./run_full_demo.sh</pre>
-      </div>
-      <div class="card span-5">
-        <h2>下载入口</h2>
-        <ul class="clean">
-          <li><a href="https://github.com/BlueMarlin1999/agentrail-public-assets/releases/tag/v0.1.0-beta.1">GitHub Release 页面</a></li>
-          <li><a href="https://github.com/BlueMarlin1999/agentrail-public-assets/releases/download/v0.1.0-beta.1/AgentRail-Friend-Test-Pack-v0.1.0-beta.1.zip">ZIP 完整测试包</a></li>
-          <li><a href="https://github.com/BlueMarlin1999/agentrail-public-assets/releases/download/v0.1.0-beta.1/AgentRail-Friend-Test-Pack-v0.1.0-beta.1.tar.gz">tar.gz 完整测试包</a></li>
-          <li><a href="https://github.com/BlueMarlin1999/agentrail-public-assets">公开分发仓库</a></li>
-        </ul>
-      </div>
+PERPETUAL_REQUIRED_TOOLS= PERPETUAL_EXECUTION_MODE=mock ./run_full_demo.sh</pre></div>
+      <div class="card span-12"><h2 data-i18n="downloadTitle">Direct downloads</h2><ul class="list"><li><a href="https://github.com/BlueMarlin1999/agentrail-public-assets/releases/download/v0.1.0-beta.1/AgentRail-Friend-Test-Pack-v0.1.0-beta.1.zip">ZIP — AgentRail Friend Test Pack</a></li><li><a href="https://github.com/BlueMarlin1999/agentrail-public-assets/releases/download/v0.1.0-beta.1/AgentRail-Friend-Test-Pack-v0.1.0-beta.1.tar.gz">tar.gz — AgentRail Friend Test Pack</a></li></ul></div>
     </section>
 
-    <div class="footer">
-      正式公开入口统一使用 https://www.agentrail.tech/ 。当前站点已启用 GitHub Pages 自定义域名与 HTTPS enforced。
-    </div>
+    <div class="footer" data-i18n="footer">Official install host: https://www.agentrail.tech/ · HTTPS is live · The installer, release pages, and pricing pages are all public.</div>
   </div>
+<script>
+const translations={en:{eyebrow:'Official Install Center',heroTitle:'Install AgentRail, download the full release bundle, and verify the runtime in one place.',heroCopy:'This page is the stable public entry for installing the AgentRail skill, downloading the complete Friend Test Pack, and running the documented verification flow for Perpetual Engine.',ctaScript:'Open installer script',ctaRelease:'Open Release Center',ctaPricing:'View Pricing',installTitle:'One-line install',installBody1:'Install into the default profile:',installBody2:'Install into a named profile:',versionTitle:'Current release',versionBody:'Public beta release with live install, release assets, and verification flow.',includesTitle:'What you get',includes1:'Installable Hermes skill package',includes2:'Perpetual Engine runtime bundle',includes3:'CLI, tests, examples, and demo scripts',includes4:'Product overview and manuals',includes5:'Operator recovery workflow',verifyTitle:'Verification flow',downloadTitle:'Direct downloads',footer:'Official install host: https://www.agentrail.tech/ · HTTPS is live · The installer, release pages, and pricing pages are all public.'},zh:{eyebrow:'官方安装中心',heroTitle:'在一个页面里安装 AgentRail、下载完整发布包并验证运行时。',heroCopy:'这个页面是稳定的公开入口，用于安装 AgentRail skill、下载完整 Friend Test Pack，并按文档验证 Perpetual Engine。',ctaScript:'打开安装脚本',ctaRelease:'打开 Release 中心',ctaPricing:'查看价格',installTitle:'一行安装',installBody1:'安装到默认 profile：',installBody2:'安装到指定 profile：',versionTitle:'当前版本',versionBody:'公开 beta 版本，已包含在线安装、发布资产和验证流程。',includesTitle:'你会拿到什么',includes1:'可安装的 Hermes skill 包',includes2:'Perpetual Engine runtime 包',includes3:'CLI、测试、示例和演示脚本',includes4:'产品介绍和手册',includes5:'Operator 恢复流程',verifyTitle:'验证流程',downloadTitle:'直接下载',footer:'正式安装域名：https://www.agentrail.tech/ · HTTPS 已启用 · 安装脚本、Release 页和价格页都已公开。'},ja:{eyebrow:'公式インストールセンター',heroTitle:'AgentRail の導入、完全リリースバンドルの取得、ランタイム検証を 1 ページで。',heroCopy:'このページは AgentRail skill の導入、Friend Test Pack の完全版ダウンロード、Perpetual Engine の検証手順をまとめた安定した公開入口です。',ctaScript:'インストーラスクリプト',ctaRelease:'Release センター',ctaPricing:'価格を見る',installTitle:'ワンラインインストール',installBody1:'デフォルト profile に導入:',installBody2:'指定 profile に導入:',versionTitle:'現在のリリース',versionBody:'公開 beta リリース。インストール、配布資産、検証フローが含まれます。',includesTitle:'含まれるもの',includes1:'インストール可能な Hermes skill',includes2:'Perpetual Engine runtime バンドル',includes3:'CLI、テスト、例、デモスクリプト',includes4:'製品概要とマニュアル',includes5:'オペレーター回復フロー',verifyTitle:'検証フロー',downloadTitle:'直接ダウンロード',footer:'公式インストールホスト: https://www.agentrail.tech/ · HTTPS 有効 · インストーラ、Release、価格ページは公開中です。'},ko:{eyebrow:'공식 설치 센터',heroTitle:'한 페이지에서 AgentRail 설치, 전체 릴리스 번들 다운로드, 런타임 검증까지.',heroCopy:'이 페이지는 AgentRail skill 설치, 전체 Friend Test Pack 다운로드, Perpetual Engine 검증 흐름을 위한 안정적인 공개 진입점입니다.',ctaScript:'설치 스크립트 열기',ctaRelease:'Release 센터',ctaPricing:'가격 보기',installTitle:'원라인 설치',installBody1:'기본 profile 설치:',installBody2:'지정 profile 설치:',versionTitle:'현재 릴리스',versionBody:'공개 beta 릴리스로 설치, 배포 자산, 검증 흐름을 포함합니다.',includesTitle:'포함 내용',includes1:'설치 가능한 Hermes skill 패키지',includes2:'Perpetual Engine runtime 번들',includes3:'CLI, 테스트, 예제, 데모 스크립트',includes4:'제품 개요와 매뉴얼',includes5:'운영자 복구 흐름',verifyTitle:'검증 흐름',downloadTitle:'직접 다운로드',footer:'공식 설치 호스트: https://www.agentrail.tech/ · HTTPS 활성화 완료 · 설치 스크립트, Release, 가격 페이지가 공개되어 있습니다.'},es:{eyebrow:'Centro oficial de instalación',heroTitle:'Instala AgentRail, descarga el bundle completo y verifica el runtime en un solo lugar.',heroCopy:'Esta página es la entrada pública estable para instalar el skill de AgentRail, descargar el Friend Test Pack completo y ejecutar el flujo de verificación documentado para Perpetual Engine.',ctaScript:'Abrir script instalador',ctaRelease:'Abrir Release Center',ctaPricing:'Ver precios',installTitle:'Instalación en una línea',installBody1:'Instalar en el perfil por defecto:',installBody2:'Instalar en un perfil específico:',versionTitle:'Release actual',versionBody:'Beta pública con instalación activa, assets de release y flujo de verificación.',includesTitle:'Qué incluye',includes1:'Paquete instalable de skill para Hermes',includes2:'Bundle runtime de Perpetual Engine',includes3:'CLI, pruebas, ejemplos y scripts demo',includes4:'Resumen del producto y manuales',includes5:'Flujo de recuperación para operadores',verifyTitle:'Flujo de verificación',downloadTitle:'Descargas directas',footer:'Host oficial de instalación: https://www.agentrail.tech/ · HTTPS activo · El instalador, release y precios ya son públicos.'},de:{eyebrow:'Offizielles Installationszentrum',heroTitle:'Installiere AgentRail, lade das vollständige Release-Bundle herunter und prüfe die Runtime an einem Ort.',heroCopy:'Diese Seite ist der stabile öffentliche Einstiegspunkt für die Installation des AgentRail-Skills, den Download des vollständigen Friend Test Packs und den dokumentierten Prüfablauf für Perpetual Engine.',ctaScript:'Installer-Skript öffnen',ctaRelease:'Release Center öffnen',ctaPricing:'Preise ansehen',installTitle:'Ein-Zeilen-Installation',installBody1:'In das Standardprofil installieren:',installBody2:'In ein bestimmtes Profil installieren:',versionTitle:'Aktuelles Release',versionBody:'Öffentliche Beta mit Live-Installation, Release-Assets und Prüfablauf.',includesTitle:'Was enthalten ist',includes1:'Installierbares Hermes-Skill-Paket',includes2:'Perpetual Engine Runtime-Bundle',includes3:'CLI, Tests, Beispiele und Demo-Skripte',includes4:'Produktübersicht und Handbücher',includes5:'Operator-Recovery-Workflow',verifyTitle:'Prüfablauf',downloadTitle:'Direkte Downloads',footer:'Offizieller Installations-Host: https://www.agentrail.tech/ · HTTPS ist aktiv · Installer, Release- und Preis-Seiten sind öffentlich.'},ar:{eyebrow:'مركز التثبيت الرسمي',heroTitle:'ثبّت AgentRail، نزّل حزمة الإصدار الكاملة، وتحقق من الـ runtime في مكان واحد.',heroCopy:'هذه الصفحة هي نقطة الدخول العامة المستقرة لتثبيت skill الخاص بـ AgentRail، وتنزيل Friend Test Pack الكامل، وتشغيل مسار التحقق الموثق لـ Perpetual Engine.',ctaScript:'افتح سكربت التثبيت',ctaRelease:'افتح مركز الإصدارات',ctaPricing:'عرض الأسعار',installTitle:'تثبيت بسطر واحد',installBody1:'التثبيت في profile الافتراضي:',installBody2:'التثبيت في profile محدد:',versionTitle:'الإصدار الحالي',versionBody:'إصدار beta عام مع تثبيت مباشر وأصول release ومسار تحقق.',includesTitle:'ما الذي ستحصل عليه',includes1:'حزمة Hermes skill قابلة للتثبيت',includes2:'حزمة runtime لـ Perpetual Engine',includes3:'CLI واختبارات وأمثلة وسكربتات عرض',includes4:'نظرة عامة على المنتج وأدلة الاستخدام',includes5:'مسار استعادة للمشغّل',verifyTitle:'مسار التحقق',downloadTitle:'تنزيلات مباشرة',footer:'مضيف التثبيت الرسمي: https://www.agentrail.tech/ · تم تفعيل HTTPS · صفحات التثبيت والإصدارات والأسعار متاحة للعامة.'}};
+function setLanguage(lang){const dict=translations[lang]||translations.en;document.documentElement.lang=lang;document.body.dir=lang==='ar'?'rtl':'ltr';document.querySelectorAll('[data-i18n]').forEach(el=>{const key=el.dataset.i18n;if(dict[key])el.textContent=dict[key];});document.querySelectorAll('#lang-chips .chip').forEach(chip=>chip.classList.toggle('active',chip.dataset.lang===lang));}
+function setTheme(theme){document.body.classList.remove('theme-dark','theme-light','theme-sunset');document.body.classList.add(`theme-${theme}`);document.querySelectorAll('#theme-chips .chip').forEach(chip=>chip.classList.toggle('active',chip.dataset.theme===theme));}
+document.querySelectorAll('#lang-chips .chip').forEach(chip=>chip.addEventListener('click',()=>setLanguage(chip.dataset.lang)));
+document.querySelectorAll('#theme-chips .chip').forEach(chip=>chip.addEventListener('click',()=>setTheme(chip.dataset.theme)));
+setLanguage('en');setTheme('dark');
+</script>
 </body>
 </html>

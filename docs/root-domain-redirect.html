@@ -1,65 +1,38 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>AgentRail 根域名跳转设置</title>
+  <title>AgentRail Domain Guide</title>
+  <meta name="description" content="How to finish the AgentRail root-domain setup and route traffic cleanly to the public www host." />
   <style>
-    body{margin:0;background:#07111d;color:#eef4ff;font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
-    .wrap{max-width:980px;margin:0 auto;padding:32px 18px 54px}.card{background:#0d1a2d;border:1px solid rgba(150,180,220,.16);border-radius:24px;padding:24px;margin-bottom:16px}
-    h1{font-size:42px;line-height:1.08;margin:0 0 14px}h2{margin:0 0 10px}p,li{color:#a9b9d2;line-height:1.75}pre{background:#06101d;color:#e3f4ff;padding:14px;border-radius:16px;white-space:pre-wrap;word-break:break-word}a{color:#86d7ff}
-    .ok{display:inline-block;padding:8px 12px;border-radius:999px;background:rgba(134,239,172,.1);color:#8ff0ba;font-weight:800;font-size:12px;text-transform:uppercase;letter-spacing:.04em}
+    :root { --bg:#07111d; --bg-soft:#0c1728; --panel:rgba(11,23,41,.86); --line:rgba(141,176,230,.18); --text:#eef4ff; --muted:#9eb0ce; --green:#8ff1bc; --cyan:#7fd8ff; --violet:#c7b2ff; --shadow:0 24px 70px rgba(0,0,0,.34); --hero-a:rgba(86,134,255,.22); --hero-b:rgba(143,241,188,.14); }
+    *{box-sizing:border-box} html,body{margin:0;padding:0} body{font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:var(--text);background:radial-gradient(circle at top left,var(--hero-a),transparent 30%),radial-gradient(circle at top right,var(--hero-b),transparent 26%),linear-gradient(180deg,var(--bg) 0%,var(--bg-soft) 100%);min-height:100vh}
+    body.theme-light{--bg:#eff4ff;--bg-soft:#dfeaf9;--panel:rgba(255,255,255,.86);--line:rgba(62,92,142,.12);--text:#091525;--muted:#4d627f;--green:#157f51;--cyan:#135d89;--violet:#5b45b5;--shadow:0 24px 60px rgba(61,81,122,.16);--hero-a:rgba(98,135,255,.18);--hero-b:rgba(127,216,255,.12)}
+    body.theme-sunset{--bg:#160c18;--bg-soft:#28111b;--panel:rgba(37,18,27,.84);--line:rgba(255,180,158,.18);--text:#fff1ec;--muted:#d6ada4;--green:#ffc37f;--cyan:#ff8aa5;--violet:#ffb3e8;--shadow:0 24px 80px rgba(0,0,0,.36);--hero-a:rgba(255,122,89,.22);--hero-b:rgba(255,200,120,.16)}
+    .wrap{max-width:1080px;margin:0 auto;padding:26px 20px 60px}a{color:inherit;text-decoration:none}.topbar{display:flex;align-items:center;justify-content:space-between;gap:20px;margin-bottom:18px}.brand{display:flex;align-items:center;gap:12px;font-weight:800}.brand-mark{width:40px;height:40px;border-radius:14px;background:linear-gradient(135deg,var(--green),var(--cyan))}.top-controls{display:flex;align-items:flex-start;gap:12px;flex-wrap:wrap;justify-content:flex-end}.control-group{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:10px 12px;box-shadow:var(--shadow);backdrop-filter:blur(12px)}.control-label{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:8px;font-weight:800}.chips{display:flex;gap:8px;flex-wrap:wrap}.chip{border:1px solid var(--line);background:rgba(255,255,255,.04);color:var(--text);border-radius:999px;padding:7px 10px;font-size:12px;font-weight:700;cursor:pointer}.chip.active{background:linear-gradient(135deg,var(--cyan),var(--violet));color:#06111d;border-color:transparent}
+    .hero,.card{background:var(--panel);border:1px solid var(--line);border-radius:28px;box-shadow:var(--shadow);backdrop-filter:blur(12px)}.hero{padding:34px;margin-bottom:18px}.navline{margin:0 0 12px;color:#d9e7ff;font-size:14px}.eyebrow{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border-radius:999px;background:rgba(143,241,188,.1);color:var(--green);font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.07em}h1{margin:18px 0 14px;font-size:clamp(36px,5vw,60px);line-height:1.02}h2{margin:0 0 12px;font-size:24px}p,li{color:var(--muted);line-height:1.75}.card{padding:24px;margin-bottom:18px}.ok{display:inline-block;padding:8px 12px;border-radius:999px;background:rgba(143,241,188,.1);color:var(--green);font-weight:800;font-size:12px;text-transform:uppercase;letter-spacing:.04em}pre{background:#06101d;color:#e3f4ff;padding:14px;border-radius:16px;white-space:pre-wrap;word-break:break-word;font-family:ui-monospace,SFMono-Regular,Menlo,monospace}.footer{margin-top:18px;color:var(--muted);font-size:13px;text-align:center}
+    @media(max-width:980px){.topbar{flex-direction:column;align-items:stretch}.top-controls{justify-content:flex-start}.hero{padding:24px}h1{font-size:42px}}
   </style>
 </head>
-<body>
-  <div class="wrap">
-    <div class="card">
-      <span class="ok">Recommended</span>
-      <h1>把 agentrail.tech 跳转到 www.agentrail.tech</h1>
-      <p>你现在已经把正式站点跑在 <a href="https://www.agentrail.tech/">www.agentrail.tech</a>。最省事、最稳定、最像正式产品的做法，就是让裸域名 <code>agentrail.tech</code> 做 301 跳转到 <code>https://www.agentrail.tech</code>。</p>
-    </div>
-
-    <div class="card">
-      <h2>Spaceship 按键级步骤</h2>
-      <ol>
-        <li>打开 agentrail.tech 的“高级 DNS”页面。</li>
-        <li>切到“URL 重定向”。</li>
-        <li>点击“添加重定向”。</li>
-        <li>Host 填：<code>@</code></li>
-        <li>目标 URL 填：<code>https://www.agentrail.tech</code></li>
-        <li>重定向类型选：<code>301 Permanent</code></li>
-        <li>保存 / 应用。</li>
-      </ol>
-      <p>如果你的面板不支持根域名 URL redirect，就继续保留 4 条 GitHub Pages A 记录，等根域名直接生效。</p>
-    </div>
-
-    <div class="card">
-      <h2>你应该保留的最终目标</h2>
-      <pre>正式站点：
-https://www.agentrail.tech/
-
-安装页：
+<body class="theme-dark"><div class="wrap"><div class="topbar"><div class="brand"><div class="brand-mark"></div><div><div style="font-size:17px;">AgentRail</div><div style="font-size:12px;color:var(--muted);font-weight:700;">Operational multi-agent delivery</div></div></div><div class="top-controls"><div class="control-group"><div class="control-label">Language</div><div class="chips" id="lang-chips"><button class="chip active" data-lang="en">EN</button><button class="chip" data-lang="zh">中文</button><button class="chip" data-lang="ja">日本語</button><button class="chip" data-lang="ko">한국어</button><button class="chip" data-lang="es">ES</button><button class="chip" data-lang="de">DE</button><button class="chip" data-lang="ar">AR</button></div></div><div class="control-group"><div class="control-label">Background</div><div class="chips" id="theme-chips"><button class="chip active" data-theme="dark">Night</button><button class="chip" data-theme="light">Light</button><button class="chip" data-theme="sunset">Sunset</button></div></div></div></div>
+<section class="hero"><div class="navline"><a href="./">Home</a> · <a href="./agentrail-install.html">Install</a> · <a href="./release.html">Release</a> · <a href="./pricing.html">Pricing</a> · <a href="./root-domain-redirect.html">Domain</a></div><span class="ok" data-i18n="badge">Recommended</span><h1 data-i18n="heroTitle">Route agentrail.tech cleanly to the public www host.</h1><p data-i18n="heroCopy">Your live branded site already runs on https://www.agentrail.tech/ . The cleanest finish is to redirect the root domain agentrail.tech to the www host or keep the GitHub Pages A-record setup until apex DNS fully stabilizes.</p></section>
+<div class="card"><h2 data-i18n="stepsTitle">Spaceship click-by-click path</h2><ol><li data-i18n="step1">Open the Advanced DNS page for agentrail.tech.</li><li data-i18n="step2">Switch to URL Redirect.</li><li data-i18n="step3">Add a redirect record.</li><li data-i18n="step4">Set Host to @.</li><li data-i18n="step5">Set target URL to https://www.agentrail.tech .</li><li data-i18n="step6">Choose 301 Permanent.</li><li data-i18n="step7">Save and apply the record.</li></ol></div>
+<div class="card"><h2 data-i18n="targetTitle">Recommended public endpoints</h2><pre>https://www.agentrail.tech/
 https://www.agentrail.tech/agentrail-install.html
-
-安装脚本：
 https://www.agentrail.tech/install-online.sh
-
-Release 页：
 https://www.agentrail.tech/release.html
-
-价格页：
-https://www.agentrail.tech/pricing.html</pre>
-    </div>
-
-    <div class="card">
-      <h2>如果你坚持让裸域名直接托管在 GitHub Pages</h2>
-      <pre>A   @   185.199.108.153
+https://www.agentrail.tech/pricing.html</pre></div>
+<div class="card"><h2 data-i18n="dnsTitle">If you want apex GitHub Pages directly</h2><pre>A   @   185.199.108.153
 A   @   185.199.109.153
 A   @   185.199.110.153
 A   @   185.199.111.153
-CNAME   www   BlueMarlin1999.github.io</pre>
-      <p>但从产品观感和运维稳定性看，我仍然建议你把 <code>agentrail.tech</code> 跳转到 <code>www.agentrail.tech</code>。</p>
-    </div>
-  </div>
-</body>
-</html>
+CNAME   www   BlueMarlin1999.github.io</pre></div><div class="footer" data-i18n="footer">Recommended finish: keep www.agentrail.tech as the official public site and redirect the root domain to it.</div></div>
+<script>
+const translations={en:{badge:'Recommended',heroTitle:'Route agentrail.tech cleanly to the public www host.',heroCopy:'Your live branded site already runs on https://www.agentrail.tech/ . The cleanest finish is to redirect the root domain agentrail.tech to the www host or keep the GitHub Pages A-record setup until apex DNS fully stabilizes.',stepsTitle:'Spaceship click-by-click path',step1:'Open the Advanced DNS page for agentrail.tech.',step2:'Switch to URL Redirect.',step3:'Add a redirect record.',step4:'Set Host to @.',step5:'Set target URL to https://www.agentrail.tech .',step6:'Choose 301 Permanent.',step7:'Save and apply the record.',targetTitle:'Recommended public endpoints',dnsTitle:'If you want apex GitHub Pages directly',footer:'Recommended finish: keep www.agentrail.tech as the official public site and redirect the root domain to it.'},zh:{badge:'推荐做法',heroTitle:'把 agentrail.tech 干净地收口到公开的 www 域名。',heroCopy:'你现在的正式站点已经跑在 https://www.agentrail.tech/ 。最干净的收尾方式，就是把根域名 agentrail.tech 跳转到 www，或者继续保持 GitHub Pages 的根域名 A 记录直到 DNS 完全稳定。',stepsTitle:'Spaceship 按键级步骤',step1:'打开 agentrail.tech 的高级 DNS 页面。',step2:'切换到 URL Redirect。',step3:'添加一条重定向记录。',step4:'Host 填 @。',step5:'目标 URL 填 https://www.agentrail.tech 。',step6:'选择 301 Permanent。',step7:'保存并应用。',targetTitle:'推荐公开入口',dnsTitle:'如果你坚持让根域名直连 GitHub Pages',footer:'推荐收口方式：保留 www.agentrail.tech 作为正式站点，并让根域名跳转过去。'},ja:{badge:'推奨',heroTitle:'agentrail.tech を公開 www ホストへきれいに集約する。',heroCopy:'現在の正式サイトはすでに https://www.agentrail.tech/ で稼働しています。もっともきれいな仕上げは、ルートドメインを www へリダイレクトすることです。',stepsTitle:'Spaceship の手順',step1:'agentrail.tech の Advanced DNS を開く。',step2:'URL Redirect へ切り替える。',step3:'リダイレクトレコードを追加する。',step4:'Host を @ にする。',step5:'転送先を https://www.agentrail.tech にする。',step6:'301 Permanent を選ぶ。',step7:'保存して適用する。',targetTitle:'推奨公開エンドポイント',dnsTitle:'ルートドメインを GitHub Pages へ直結したい場合',footer:'推奨: 公式公開サイトは www.agentrail.tech を維持し、ルートドメインはそこへ転送する。'},ko:{badge:'권장',heroTitle:'agentrail.tech 를 공개 www 호스트로 깔끔하게 정리하세요.',heroCopy:'실제 브랜드 사이트는 이미 https://www.agentrail.tech/ 에서 운영 중입니다. 가장 깔끔한 마무리는 루트 도메인을 www 로 리다이렉트하는 것입니다.',stepsTitle:'Spaceship 단계별 경로',step1:'agentrail.tech 의 고급 DNS 페이지를 엽니다.',step2:'URL Redirect 로 이동합니다.',step3:'리다이렉트 레코드를 추가합니다.',step4:'Host 를 @ 로 설정합니다.',step5:'대상 URL 을 https://www.agentrail.tech 로 설정합니다.',step6:'301 Permanent 를 선택합니다.',step7:'저장하고 적용합니다.',targetTitle:'권장 공개 엔드포인트',dnsTitle:'루트 도메인을 GitHub Pages 에 직접 연결하려면',footer:'권장 마무리: 공식 공개 사이트는 www.agentrail.tech 를 유지하고, 루트 도메인은 그쪽으로 리다이렉트합니다.'},es:{badge:'Recomendado',heroTitle:'Enruta agentrail.tech limpiamente hacia el host público www.',heroCopy:'Tu sitio de marca ya vive en https://www.agentrail.tech/ . La forma más limpia de cerrarlo es redirigir el dominio raíz hacia www.',stepsTitle:'Ruta paso a paso en Spaceship',step1:'Abre la página Advanced DNS de agentrail.tech.',step2:'Cambia a URL Redirect.',step3:'Añade un registro de redirección.',step4:'Define Host como @.',step5:'Define la URL destino como https://www.agentrail.tech .',step6:'Elige 301 Permanent.',step7:'Guarda y aplica.',targetTitle:'Endpoints públicos recomendados',dnsTitle:'Si quieres apex GitHub Pages directo',footer:'Final recomendado: mantener www.agentrail.tech como sitio oficial y redirigir el dominio raíz hacia allí.'},de:{badge:'Empfohlen',heroTitle:'Leite agentrail.tech sauber auf den öffentlichen www-Host um.',heroCopy:'Deine gebrandete Live-Site läuft bereits unter https://www.agentrail.tech/ . Der sauberste Abschluss ist eine Weiterleitung der Root-Domain agentrail.tech auf den www-Host.',stepsTitle:'Spaceship Schritt für Schritt',step1:'Öffne die Advanced-DNS-Seite für agentrail.tech.',step2:'Wechsle zu URL Redirect.',step3:'Füge einen Redirect-Eintrag hinzu.',step4:'Setze Host auf @.',step5:'Setze die Ziel-URL auf https://www.agentrail.tech .',step6:'Wähle 301 Permanent.',step7:'Speichere und übernimm die Änderung.',targetTitle:'Empfohlene öffentliche Endpunkte',dnsTitle:'Wenn du Apex-GitHub-Pages direkt willst',footer:'Empfohlener Abschluss: www.agentrail.tech als offizielle öffentliche Site behalten und die Root-Domain dorthin umleiten.'},ar:{badge:'موصى به',heroTitle:'وجّه agentrail.tech بشكل نظيف إلى مضيف www العام.',heroCopy:'موقعك الفعلي يعمل بالفعل على https://www.agentrail.tech/ . أنظف إنهاء هو تحويل النطاق الجذري إلى مضيف www.',stepsTitle:'المسار خطوة بخطوة داخل Spaceship',step1:'افتح صفحة Advanced DNS الخاصة بـ agentrail.tech.',step2:'انتقل إلى URL Redirect.',step3:'أضف سجل إعادة توجيه.',step4:'اضبط Host على @.',step5:'اضبط الرابط الهدف إلى https://www.agentrail.tech .',step6:'اختر 301 Permanent.',step7:'احفظ وطبّق.',targetTitle:'النهايات العامة الموصى بها',dnsTitle:'إذا أردت ربط النطاق الجذري مباشرة بـ GitHub Pages',footer:'الإنهاء الموصى به: إبقاء www.agentrail.tech كموقع عام رسمي وإعادة توجيه النطاق الجذري إليه.'}};
+function setLanguage(lang){const dict=translations[lang]||translations.en;document.documentElement.lang=lang;document.body.dir=lang==='ar'?'rtl':'ltr';document.querySelectorAll('[data-i18n]').forEach(el=>{const key=el.dataset.i18n;if(dict[key])el.textContent=dict[key];});document.querySelectorAll('#lang-chips .chip').forEach(chip=>chip.classList.toggle('active',chip.dataset.lang===lang));}
+function setTheme(theme){document.body.classList.remove('theme-dark','theme-light','theme-sunset');document.body.classList.add(`theme-${theme}`);document.querySelectorAll('#theme-chips .chip').forEach(chip=>chip.classList.toggle('active',chip.dataset.theme===theme));}
+document.querySelectorAll('#lang-chips .chip').forEach(chip=>chip.addEventListener('click',()=>setLanguage(chip.dataset.lang)));
+document.querySelectorAll('#theme-chips .chip').forEach(chip=>chip.addEventListener('click',()=>setTheme(chip.dataset.theme)));
+setLanguage('en');setTheme('dark');
+</script></body></html>

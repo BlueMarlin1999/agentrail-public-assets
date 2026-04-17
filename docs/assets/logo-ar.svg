@@ -1,0 +1,36 @@
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="72" y1="56" x2="456" y2="456" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#0B1020"/>
+      <stop offset="0.48" stop-color="#121A34"/>
+      <stop offset="1" stop-color="#1A1033"/>
+    </linearGradient>
+    <linearGradient id="stroke" x1="112" y1="96" x2="404" y2="408" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#6FF7FF"/>
+      <stop offset="0.46" stop-color="#6B8DFF"/>
+      <stop offset="1" stop-color="#C65CFF"/>
+    </linearGradient>
+    <linearGradient id="glow" x1="170" y1="130" x2="380" y2="390" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#9DFFEC"/>
+      <stop offset="0.45" stop-color="#71C8FF"/>
+      <stop offset="1" stop-color="#FF79D9"/>
+    </linearGradient>
+    <filter id="softGlow" x="36" y="20" width="440" height="472" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+      <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+      <feGaussianBlur stdDeviation="18" result="effect1_foregroundBlur_1_2"/>
+    </filter>
+  </defs>
+  <rect x="40" y="40" width="432" height="432" rx="118" fill="url(#bg)"/>
+  <rect x="48" y="48" width="416" height="416" rx="110" stroke="rgba(255,255,255,0.12)" stroke-width="2"/>
+  <g filter="url(#softGlow)" opacity="0.9">
+    <path d="M157 360L255 136L355 360" stroke="url(#glow)" stroke-width="28" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M196 276H313" stroke="url(#glow)" stroke-width="24" stroke-linecap="round"/>
+    <path d="M273 136V360" stroke="url(#glow)" stroke-width="24" stroke-linecap="round"/>
+    <path d="M273 248H336C378 248 404 272 404 307C404 341 378 360 340 360H273" stroke="url(#glow)" stroke-width="24" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+  <path d="M157 360L255 136L355 360" stroke="url(#stroke)" stroke-width="18" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M196 276H313" stroke="url(#stroke)" stroke-width="14" stroke-linecap="round"/>
+  <path d="M273 136V360" stroke="url(#stroke)" stroke-width="14" stroke-linecap="round"/>
+  <path d="M273 248H336C378 248 404 272 404 307C404 341 378 360 340 360H273" stroke="url(#stroke)" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AgentRail 根域名跳转设置</title>
+  <style>
+    body{margin:0;background:#07111d;color:#eef4ff;font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+    .wrap{max-width:980px;margin:0 auto;padding:32px 18px 54px}.card{background:#0d1a2d;border:1px solid rgba(150,180,220,.16);border-radius:24px;padding:24px;margin-bottom:16px}
+    h1{font-size:42px;line-height:1.08;margin:0 0 14px}h2{margin:0 0 10px}p,li{color:#a9b9d2;line-height:1.75}pre{background:#06101d;color:#e3f4ff;padding:14px;border-radius:16px;white-space:pre-wrap;word-break:break-word}a{color:#86d7ff}
+    .ok{display:inline-block;padding:8px 12px;border-radius:999px;background:rgba(134,239,172,.1);color:#8ff0ba;font-weight:800;font-size:12px;text-transform:uppercase;letter-spacing:.04em}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="card">
+      <span class="ok">Recommended</span>
+      <h1>把 agentrail.tech 跳转到 www.agentrail.tech</h1>
+      <p>你现在已经把正式站点跑在 <a href="https://www.agentrail.tech/">www.agentrail.tech</a>。最省事、最稳定、最像正式产品的做法，就是让裸域名 <code>agentrail.tech</code> 做 301 跳转到 <code>https://www.agentrail.tech</code>。</p>
+    </div>
+
+    <div class="card">
+      <h2>Spaceship 按键级步骤</h2>
+      <ol>
+        <li>打开 agentrail.tech 的“高级 DNS”页面。</li>
+        <li>切到“URL 重定向”。</li>
+        <li>点击“添加重定向”。</li>
+        <li>Host 填：<code>@</code></li>
+        <li>目标 URL 填：<code>https://www.agentrail.tech</code></li>
+        <li>重定向类型选：<code>301 Permanent</code></li>
+        <li>保存 / 应用。</li>
+      </ol>
+      <p>如果你的面板不支持根域名 URL redirect，就继续保留 4 条 GitHub Pages A 记录，等根域名直接生效。</p>
+    </div>
+
+    <div class="card">
+      <h2>你应该保留的最终目标</h2>
+      <pre>正式站点：
+https://www.agentrail.tech/
+
+安装页：
+https://www.agentrail.tech/agentrail-install.html
+
+安装脚本：
+https://www.agentrail.tech/install-online.sh
+
+Release 页：
+https://www.agentrail.tech/release.html
+
+价格页：
+https://www.agentrail.tech/pricing.html</pre>
+    </div>
+
+    <div class="card">
+      <h2>如果你坚持让裸域名直接托管在 GitHub Pages</h2>
+      <pre>A   @   185.199.108.153
+A   @   185.199.109.153
+A   @   185.199.110.153
+A   @   185.199.111.153
+CNAME   www   BlueMarlin1999.github.io</pre>
+      <p>但从产品观感和运维稳定性看，我仍然建议你把 <code>agentrail.tech</code> 跳转到 <code>www.agentrail.tech</code>。</p>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,1 +1,331 @@
-<!DOCTYPE html><html><head><meta http-equiv="refresh" content="0; url=./agentrail-install.html"></head><body></body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AgentRail — Put Multi-Agent Delivery on Rails</title>
+  <meta name="description" content="AgentRail turns multi-agent execution into a recoverable, auditable delivery system with installable workflows, release assets, operator controls, and production-grade discipline." />
+  <style>
+    :root {
+      --bg: #07111d;
+      --bg-soft: #0c1728;
+      --panel: rgba(11, 23, 41, 0.86);
+      --panel-2: rgba(14, 29, 49, 0.92);
+      --line: rgba(141, 176, 230, 0.18);
+      --text: #eef4ff;
+      --muted: #9eb0ce;
+      --green: #8ff1bc;
+      --cyan: #7fd8ff;
+      --violet: #c7b2ff;
+      --amber: #ffd48f;
+      --shadow: 0 24px 70px rgba(0, 0, 0, 0.34);
+      --hero-a: rgba(86, 134, 255, 0.22);
+      --hero-b: rgba(143, 241, 188, 0.14);
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+    body {
+      font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, var(--hero-a), transparent 30%),
+        radial-gradient(circle at top right, var(--hero-b), transparent 26%),
+        linear-gradient(180deg, var(--bg) 0%, var(--bg-soft) 100%);
+      min-height: 100vh;
+      transition: background 180ms ease, color 180ms ease;
+    }
+    body.theme-light {
+      --bg: #eff4ff;
+      --bg-soft: #dfeaf9;
+      --panel: rgba(255,255,255,0.86);
+      --panel-2: rgba(249,251,255,0.94);
+      --line: rgba(62, 92, 142, 0.12);
+      --text: #091525;
+      --muted: #4d627f;
+      --green: #157f51;
+      --cyan: #135d89;
+      --violet: #5b45b5;
+      --amber: #8a5900;
+      --shadow: 0 24px 60px rgba(61, 81, 122, 0.16);
+      --hero-a: rgba(98, 135, 255, 0.18);
+      --hero-b: rgba(127, 216, 255, 0.12);
+    }
+    body.theme-sunset {
+      --bg: #160c18;
+      --bg-soft: #28111b;
+      --panel: rgba(37, 18, 27, 0.84);
+      --panel-2: rgba(49, 20, 31, 0.9);
+      --line: rgba(255, 180, 158, 0.18);
+      --text: #fff1ec;
+      --muted: #d6ada4;
+      --green: #ffc37f;
+      --cyan: #ff8aa5;
+      --violet: #ffb3e8;
+      --amber: #ffd29c;
+      --shadow: 0 24px 80px rgba(0,0,0,0.36);
+      --hero-a: rgba(255, 122, 89, 0.22);
+      --hero-b: rgba(255, 200, 120, 0.16);
+    }
+    a { color: inherit; }
+    .wrap { max-width: 1180px; margin: 0 auto; padding: 26px 20px 60px; }
+    .topbar {
+      display: flex; align-items: center; justify-content: space-between; gap: 20px;
+      margin-bottom: 18px;
+    }
+    .brand {
+      display: flex; align-items: center; gap: 12px; font-weight: 800; letter-spacing: .02em;
+    }
+    .brand-mark {
+      width: 40px; height: 40px; border-radius: 14px;
+      background: linear-gradient(135deg, var(--green), var(--cyan));
+      box-shadow: inset 0 1px 0 rgba(255,255,255,.3), 0 12px 24px rgba(0,0,0,.22);
+    }
+    .top-controls { display: flex; align-items: flex-start; gap: 12px; flex-wrap: wrap; justify-content: flex-end; }
+    .control-group {
+      background: var(--panel); border: 1px solid var(--line); border-radius: 18px; padding: 10px 12px; box-shadow: var(--shadow);
+      backdrop-filter: blur(12px);
+    }
+    .control-label { font-size: 11px; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); margin-bottom: 8px; font-weight: 800; }
+    .chips { display: flex; gap: 8px; flex-wrap: wrap; }
+    .chip {
+      border: 1px solid var(--line); background: rgba(255,255,255,.04); color: var(--text);
+      border-radius: 999px; padding: 7px 10px; font-size: 12px; font-weight: 700; cursor: pointer;
+    }
+    .chip.active { background: linear-gradient(135deg, var(--cyan), var(--violet)); color: #06111d; border-color: transparent; }
+    .hero, .card {
+      background: var(--panel); border: 1px solid var(--line); border-radius: 28px; box-shadow: var(--shadow); backdrop-filter: blur(12px);
+    }
+    .hero { padding: 34px; position: relative; overflow: hidden; }
+    .hero::after {
+      content: ""; position: absolute; right: -40px; bottom: -40px; width: 260px; height: 260px; border-radius: 999px;
+      background: radial-gradient(circle, rgba(255,255,255,.11) 0%, rgba(255,255,255,0) 70%);
+      pointer-events: none;
+    }
+    .eyebrow {
+      display: inline-flex; align-items: center; gap: 8px; padding: 8px 12px; border-radius: 999px;
+      background: rgba(143, 241, 188, 0.1); color: var(--green); font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: .07em;
+    }
+    h1 { margin: 18px 0 14px; font-size: clamp(38px, 6vw, 70px); line-height: 1.02; max-width: 930px; }
+    .hero-copy { max-width: 780px; font-size: 18px; line-height: 1.8; color: var(--muted); }
+    .actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 24px; }
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px; text-decoration: none;
+      padding: 14px 18px; border-radius: 15px; font-weight: 900; border: 1px solid transparent;
+    }
+    .btn-primary { background: linear-gradient(135deg, var(--green), #cfffe0); color: #062516; }
+    .btn-secondary { background: linear-gradient(135deg, var(--cyan), #d6f4ff); color: #032236; }
+    .btn-ghost { border-color: var(--line); background: rgba(255,255,255,.03); color: var(--text); }
+    .hero-grid { margin-top: 24px; display: grid; grid-template-columns: 1.15fr .85fr; gap: 18px; }
+    .hero-panel {
+      padding: 18px; border-radius: 22px; background: var(--panel-2); border: 1px solid rgba(255,255,255,.06);
+    }
+    .code { white-space: pre-wrap; word-break: break-word; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; line-height: 1.65; color: #dff4ff; }
+    .grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 18px; margin-top: 18px; }
+    .card { padding: 24px; }
+    .span-4 { grid-column: span 4; }
+    .span-5 { grid-column: span 5; }
+    .span-6 { grid-column: span 6; }
+    .span-7 { grid-column: span 7; }
+    .span-8 { grid-column: span 8; }
+    h2 { margin: 0 0 12px; font-size: 24px; }
+    h3 { margin: 0 0 10px; font-size: 18px; }
+    p, li { color: var(--muted); line-height: 1.75; }
+    .metric-row { display: grid; grid-template-columns: repeat(4,1fr); gap: 12px; margin-top: 18px; }
+    .metric {
+      padding: 16px; border-radius: 18px; background: rgba(255,255,255,.03); border: 1px solid rgba(255,255,255,.06);
+    }
+    .metric strong { display: block; font-size: 20px; color: var(--text); margin-bottom: 6px; }
+    .list { padding-left: 18px; margin: 0; }
+    .stage { padding: 16px; border-radius: 18px; background: rgba(255,255,255,.03); border: 1px solid rgba(255,255,255,.06); margin-top: 12px; }
+    .stage small { display: block; color: var(--amber); font-weight: 800; margin-bottom: 8px; letter-spacing: .06em; }
+    .pricing { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; }
+    .price { font-size: 40px; font-weight: 900; margin: 10px 0 12px; }
+    .footer { margin-top: 18px; color: var(--muted); font-size: 13px; text-align: center; }
+    @media (max-width: 980px) {
+      .topbar { flex-direction: column; align-items: stretch; }
+      .top-controls { justify-content: flex-start; }
+      .hero-grid, .pricing, .metric-row { grid-template-columns: 1fr; }
+      .grid { grid-template-columns: 1fr; }
+      .span-4, .span-5, .span-6, .span-7, .span-8 { grid-column: span 1; }
+      .hero { padding: 24px; }
+      h1 { font-size: 42px; }
+    }
+  </style>
+</head>
+<body class="theme-dark">
+  <div class="wrap">
+    <div class="topbar">
+      <div class="brand">
+        <div class="brand-mark"></div>
+        <div>
+          <div style="font-size:17px;">AgentRail</div>
+          <div style="font-size:12px;color:var(--muted);font-weight:700;">Operational multi-agent delivery</div>
+        </div>
+      </div>
+      <div class="top-controls">
+        <div class="control-group">
+          <div class="control-label">Language</div>
+          <div class="chips" id="lang-chips">
+            <button class="chip active" data-lang="en">EN</button>
+            <button class="chip" data-lang="zh">中文</button>
+            <button class="chip" data-lang="ja">日本語</button>
+            <button class="chip" data-lang="ko">한국어</button>
+            <button class="chip" data-lang="es">ES</button>
+            <button class="chip" data-lang="ar">AR</button>
+          </div>
+        </div>
+        <div class="control-group">
+          <div class="control-label">Background</div>
+          <div class="chips" id="theme-chips">
+            <button class="chip active" data-theme="dark">Night</button>
+            <button class="chip" data-theme="light">Light</button>
+            <button class="chip" data-theme="sunset">Sunset</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <section class="hero">
+      <div class="eyebrow" data-i18n="eyebrow">Official Product Site · English Default</div>
+      <h1 data-i18n="heroTitle">Put multi-agent delivery on rails.</h1>
+      <p class="hero-copy" data-i18n="heroCopy">AgentRail turns routing rules, prompts, and model calls into a recoverable execution system with explicit stage transitions, artifact trails, clean blocked states, operator recovery controls, and a public release flow that is ready to install, test, demo, and sell.</p>
+      <div class="actions">
+        <a class="btn btn-primary" href="./agentrail-install.html" data-i18n="ctaInstall">Open Install Center</a>
+        <a class="btn btn-secondary" href="./release.html" data-i18n="ctaRelease">Open Release Center</a>
+        <a class="btn btn-ghost" href="./pricing.html" data-i18n="ctaPricing">View Pricing</a>
+      </div>
+      <div class="hero-grid">
+        <div class="hero-panel">
+          <h3 data-i18n="oneLineLabel">One-line install</h3>
+          <div class="code">curl -fsSL https://www.agentrail.tech/install-online.sh | bash</div>
+        </div>
+        <div class="hero-panel">
+          <h3 data-i18n="publicHostLabel">Public host</h3>
+          <div class="code">https://www.agentrail.tech/</div>
+        </div>
+      </div>
+      <div class="metric-row">
+        <div class="metric"><strong data-i18n="metric1Title">Recoverable</strong><span data-i18n="metric1Body">Failure paths are explicit, not hidden.</span></div>
+        <div class="metric"><strong data-i18n="metric2Title">Auditable</strong><span data-i18n="metric2Body">Artifacts, retries, and stage history stay visible.</span></div>
+        <div class="metric"><strong data-i18n="metric3Title">Installable</strong><span data-i18n="metric3Body">Public release assets and one-line install are live.</span></div>
+        <div class="metric"><strong data-i18n="metric4Title">Sellable</strong><span data-i18n="metric4Body">Pricing, release pages, and commercial packaging are ready.</span></div>
+      </div>
+    </section>
+
+    <section class="grid">
+      <div class="card span-7">
+        <h2 data-i18n="logicTitle">How it works</h2>
+        <div class="stage"><small>STEP 01</small><span data-i18n="logic1">AgentRail receives the work item and routes it into a structured execution path.</span></div>
+        <div class="stage"><small>STEP 02</small><span data-i18n="logic2">Perpetual Engine enforces stage progression for planning, implementation, self-check, testing, review, retries, and blocked-state handling.</span></div>
+        <div class="stage"><small>STEP 03</small><span data-i18n="logic3">Operators can inspect summaries, resume blocked work, reset retries, and preserve a clean operational trail.</span></div>
+      </div>
+      <div class="card span-5">
+        <h2 data-i18n="navTitle">Primary paths</h2>
+        <ul class="list">
+          <li><a href="./agentrail-install.html" data-i18n="navInstall">Install Center</a></li>
+          <li><a href="./release.html" data-i18n="navRelease">Release Center</a></li>
+          <li><a href="./pricing.html" data-i18n="navPricing">Pricing</a></li>
+          <li><a href="./root-domain-redirect.html" data-i18n="navDomain">Root-domain guide</a></li>
+        </ul>
+      </div>
+
+      <div class="card span-4">
+        <h2 data-i18n="insideTitle">What is included</h2>
+        <ul class="list">
+          <li data-i18n="inside1">Installable Hermes skill package</li>
+          <li data-i18n="inside2">Perpetual Engine runtime</li>
+          <li data-i18n="inside3">CLI, tests, examples, and mock demo flow</li>
+          <li data-i18n="inside4">Release assets, manuals, and product overview PDFs</li>
+          <li data-i18n="inside5">Operator controls and recovery workflow</li>
+        </ul>
+      </div>
+      <div class="card span-8">
+        <h2 data-i18n="whyTitle">Why teams want it</h2>
+        <p data-i18n="whyBody">Most agent systems look impressive until they fail. AgentRail is built for the moment after failure: when you need explicit state, clear artifacts, controlled retries, safe blocked states, and an operator-friendly way back to forward progress.</p>
+      </div>
+
+      <div class="card span-12">
+        <h2 data-i18n="pricingTitle">Commercial entry points</h2>
+        <div class="pricing">
+          <div class="stage">
+            <small data-i18n="priceTier1Label">Beta Early Access</small>
+            <div class="price">$99</div>
+            <p data-i18n="priceTier1Body">For early technical buyers who want the full package, public install flow, and stable mock-mode evaluation path.</p>
+          </div>
+          <div class="stage">
+            <small data-i18n="priceTier2Label">Professional Skill Package</small>
+            <div class="price">$299</div>
+            <p data-i18n="priceTier2Body">For serious builders and small teams who want a stronger delivery bundle, operator runbook, and polished release assets.</p>
+          </div>
+          <div class="stage">
+            <small data-i18n="priceTier3Label">Team / Commercial</small>
+            <div class="price" data-i18n="priceTier3Price">Custom</div>
+            <p data-i18n="priceTier3Body">For team rollout, commercial licensing, implementation guidance, white-label discussions, and premium support.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="footer" data-i18n="footer">Official public host: https://www.agentrail.tech/ · HTTPS is live · Release, pricing, install, and domain-handling pages are all online.</div>
+  </div>
+
+  <script>
+    const translations = {
+      en: {
+        eyebrow: 'Official Product Site · English Default',
+        heroTitle: 'Put multi-agent delivery on rails.',
+        heroCopy: 'AgentRail turns routing rules, prompts, and model calls into a recoverable execution system with explicit stage transitions, artifact trails, clean blocked states, operator recovery controls, and a public release flow that is ready to install, test, demo, and sell.',
+        ctaInstall: 'Open Install Center', ctaRelease: 'Open Release Center', ctaPricing: 'View Pricing',
+        oneLineLabel: 'One-line install', publicHostLabel: 'Public host',
+        metric1Title: 'Recoverable', metric1Body: 'Failure paths are explicit, not hidden.',
+        metric2Title: 'Auditable', metric2Body: 'Artifacts, retries, and stage history stay visible.',
+        metric3Title: 'Installable', metric3Body: 'Public release assets and one-line install are live.',
+        metric4Title: 'Sellable', metric4Body: 'Pricing, release pages, and commercial packaging are ready.',
+        logicTitle: 'How it works', logic1: 'AgentRail receives the work item and routes it into a structured execution path.', logic2: 'Perpetual Engine enforces stage progression for planning, implementation, self-check, testing, review, retries, and blocked-state handling.', logic3: 'Operators can inspect summaries, resume blocked work, reset retries, and preserve a clean operational trail.',
+        navTitle: 'Primary paths', navInstall: 'Install Center', navRelease: 'Release Center', navPricing: 'Pricing', navDomain: 'Root-domain guide',
+        insideTitle: 'What is included', inside1: 'Installable Hermes skill package', inside2: 'Perpetual Engine runtime', inside3: 'CLI, tests, examples, and mock demo flow', inside4: 'Release assets, manuals, and product overview PDFs', inside5: 'Operator controls and recovery workflow',
+        whyTitle: 'Why teams want it', whyBody: 'Most agent systems look impressive until they fail. AgentRail is built for the moment after failure: when you need explicit state, clear artifacts, controlled retries, safe blocked states, and an operator-friendly way back to forward progress.',
+        pricingTitle: 'Commercial entry points', priceTier1Label: 'Beta Early Access', priceTier1Body: 'For early technical buyers who want the full package, public install flow, and stable mock-mode evaluation path.', priceTier2Label: 'Professional Skill Package', priceTier2Body: 'For serious builders and small teams who want a stronger delivery bundle, operator runbook, and polished release assets.', priceTier3Label: 'Team / Commercial', priceTier3Price: 'Custom', priceTier3Body: 'For team rollout, commercial licensing, implementation guidance, white-label discussions, and premium support.',
+        footer: 'Official public host: https://www.agentrail.tech/ · HTTPS is live · Release, pricing, install, and domain-handling pages are all online.'
+      },
+      zh: {
+        eyebrow: '官方网站 · 默认英文', heroTitle: '把多代理交付真正放到轨道上。', heroCopy: 'AgentRail 把路由规则、提示词和模型调用，变成一个可恢复、可追踪、可运营的执行系统：有明确阶段流转、有工件链、有阻塞状态、有人工恢复控制，也有可安装、可测试、可演示、可销售的公开发布链路。', ctaInstall: '打开安装中心', ctaRelease: '打开 Release 中心', ctaPricing: '查看价格', oneLineLabel: '一行安装', publicHostLabel: '正式公网域名', metric1Title: '可恢复', metric1Body: '失败路径是显式的，不是隐藏的。', metric2Title: '可审计', metric2Body: '工件、重试和阶段历史都可见。', metric3Title: '可安装', metric3Body: '公开发布资产和一行安装已上线。', metric4Title: '可销售', metric4Body: '价格页、Release 页和商业包装已就绪。', logicTitle: '工作逻辑', logic1: 'AgentRail 接收工作项，并把它送入结构化执行路径。', logic2: 'Perpetual Engine 强制执行规划、实现、自检、测试、评审、重试与阻塞治理。', logic3: '操作员可以查看摘要、恢复阻塞任务、重置重试计数，并保留清晰操作轨迹。', navTitle: '主要入口', navInstall: '安装中心', navRelease: 'Release 中心', navPricing: '价格页', navDomain: '根域名说明', insideTitle: '你会拿到什么', inside1: '可安装的 Hermes skill 包', inside2: 'Perpetual Engine runtime', inside3: 'CLI、测试、示例和 mock 演示流程', inside4: 'Release 资产、手册和产品介绍 PDF', inside5: 'Operator 控制与恢复流程', whyTitle: '为什么团队会想要它', whyBody: '大多数代理系统在正常时看起来都很聪明，真正暴露差距的是失败之后。AgentRail 专门为失败后的控制而设计：明确状态、清晰工件、可控重试、安全阻塞、以及让操作员重新恢复前进的路径。', pricingTitle: '商业入口', priceTier1Label: 'Beta 提前体验', priceTier1Body: '适合第一批技术买家：拿到完整包、公开安装流程和稳定的 mock 演示路径。', priceTier2Label: '专业 Skill 套餐', priceTier2Body: '适合认真落地的开发者和小团队：更完整的交付包、operator runbook 和 polished release assets。', priceTier3Label: '团队 / 商业授权', priceTier3Price: '定制', priceTier3Body: '适用于团队推广、商业授权、实施支持、白标讨论和高级支持。', footer: '正式公网域名：https://www.agentrail.tech/ · HTTPS 已上线 · Release、价格、安装和域名说明页面均已可用。'
+      },
+      ja: {
+        eyebrow: '公式プロダクトサイト · 英語デフォルト', heroTitle: 'マルチエージェント配信をレールに乗せる。', heroCopy: 'AgentRail は、ルーティング規則・プロンプト・モデル呼び出しを、明確なステージ遷移、アーティファクト追跡、BLOCKED 状態、オペレーター回復制御、そしてインストール・テスト・デモ・販売まで対応した公開配布フローを備える回復可能な実行システムへ変えます。', ctaInstall: 'インストールセンター', ctaRelease: 'Release センター', ctaPricing: '価格を見る', oneLineLabel: 'ワンラインインストール', publicHostLabel: '公開ホスト', metric1Title: '回復可能', metric1Body: '失敗経路は隠されず明示されます。', metric2Title: '監査可能', metric2Body: 'アーティファクト、リトライ、履歴が見えます。', metric3Title: '導入可能', metric3Body: '公開リリース資産とワンライン導入が稼働中です。', metric4Title: '販売可能', metric4Body: '価格、リリースページ、商用パッケージが揃っています。', logicTitle: '仕組み', logic1: 'AgentRail は作業項目を受け取り、構造化された実行経路に流します。', logic2: 'Perpetual Engine が計画、実装、自己確認、テスト、レビュー、再試行、BLOCKED 処理を強制します。', logic3: 'オペレーターは要約確認、BLOCKED 作業の再開、リトライのリセットができます。', navTitle: '主要導線', navInstall: 'インストール', navRelease: 'Release', navPricing: '価格', navDomain: 'ルートドメイン案内', insideTitle: '含まれるもの', inside1: 'インストール可能な Hermes skill パッケージ', inside2: 'Perpetual Engine runtime', inside3: 'CLI、テスト、サンプル、mock デモ', inside4: 'リリース資産、マニュアル、製品紹介 PDF', inside5: 'オペレーター制御と回復ワークフロー', whyTitle: 'なぜ必要か', whyBody: '多くのエージェントシステムは正常時には魅力的です。本当の差は失敗後に出ます。AgentRail は、明確な状態、追跡可能なアーティファクト、制御されたリトライ、安全な BLOCKED 状態、そして前進を再開する運用経路のために作られています。', pricingTitle: '商用プラン', priceTier1Label: 'Beta Early Access', priceTier1Body: '初期の技術ユーザー向け。完全パッケージと安定した mock 評価フローを提供します。', priceTier2Label: 'Professional Skill Package', priceTier2Body: '本格導入したい開発者や小規模チーム向け。より強い配布バンドルと運用資料を含みます。', priceTier3Label: 'Team / Commercial', priceTier3Price: '個別見積', priceTier3Body: 'チーム展開、商用ライセンス、導入支援、ホワイトラベル検討向け。', footer: '公式公開ホスト: https://www.agentrail.tech/ · HTTPS 有効 · Release、価格、インストール、ドメイン案内ページはすべて公開中です。'
+      },
+      ko: {
+        eyebrow: '공식 제품 사이트 · 기본 언어 영어', heroTitle: '멀티 에이전트 딜리버리를 레일 위에 올리세요.', heroCopy: 'AgentRail은 라우팅 규칙, 프롬프트, 모델 호출을 명확한 단계 전환, 아티팩트 추적, BLOCKED 상태, 운영자 복구 제어, 그리고 설치·테스트·데모·판매 가능한 공개 배포 흐름을 갖춘 복구 가능한 실행 시스템으로 바꿉니다.', ctaInstall: '설치 센터 열기', ctaRelease: 'Release 센터 열기', ctaPricing: '가격 보기', oneLineLabel: '원라인 설치', publicHostLabel: '공개 호스트', metric1Title: '복구 가능', metric1Body: '실패 경로가 숨겨지지 않고 명확합니다.', metric2Title: '감사 가능', metric2Body: '아티팩트, 재시도, 단계 이력이 보입니다.', metric3Title: '설치 가능', metric3Body: '공개 릴리스 자산과 원라인 설치가 라이브입니다.', metric4Title: '판매 가능', metric4Body: '가격, 릴리스 페이지, 상업 패키징이 준비되었습니다.', logicTitle: '작동 방식', logic1: 'AgentRail은 작업 항목을 받아 구조화된 실행 경로로 보냅니다.', logic2: 'Perpetual Engine이 계획, 구현, 자체 점검, 테스트, 리뷰, 재시도, BLOCKED 처리를 강제합니다.', logic3: '운영자는 요약 확인, 차단된 작업 재개, 재시도 초기화를 수행할 수 있습니다.', navTitle: '주요 경로', navInstall: '설치 센터', navRelease: 'Release 센터', navPricing: '가격', navDomain: '루트 도메인 안내', insideTitle: '포함 내용', inside1: '설치 가능한 Hermes skill 패키지', inside2: 'Perpetual Engine runtime', inside3: 'CLI, 테스트, 예제, mock 데모 흐름', inside4: '릴리스 자산, 매뉴얼, 제품 소개 PDF', inside5: '운영자 제어 및 복구 워크플로', whyTitle: '왜 필요한가', whyBody: '대부분의 에이전트 시스템은 정상 상황에서는 멋져 보입니다. 진짜 차이는 실패 후에 드러납니다. AgentRail은 명확한 상태, 추적 가능한 아티팩트, 통제된 재시도, 안전한 BLOCKED 상태, 그리고 다시 전진할 수 있는 운영 경로를 위해 설계되었습니다.', pricingTitle: '상업적 진입점', priceTier1Label: 'Beta Early Access', priceTier1Body: '초기 기술 구매자를 위한 완전한 패키지와 안정적인 mock 평가 경로.', priceTier2Label: 'Professional Skill Package', priceTier2Body: '진지하게 도입하려는 개발자와 소규모 팀을 위한 강화된 전달 번들.', priceTier3Label: 'Team / Commercial', priceTier3Price: '맞춤형', priceTier3Body: '팀 도입, 상업 라이선스, 구현 지원, 화이트라벨 논의를 위한 옵션.', footer: '공식 공개 호스트: https://www.agentrail.tech/ · HTTPS 활성화 완료 · Release, 가격, 설치, 도메인 안내 페이지가 모두 온라인입니다.'
+      },
+      es: {
+        eyebrow: 'Sitio oficial del producto · Inglés por defecto', heroTitle: 'Pon la entrega multiagente sobre rieles.', heroCopy: 'AgentRail convierte reglas de enrutamiento, prompts y llamadas de modelo en un sistema de ejecución recuperable con transiciones de etapa explícitas, rastros de artefactos, estados bloqueados limpios, controles de recuperación para operadores y un flujo público listo para instalar, probar, demostrar y vender.', ctaInstall: 'Abrir centro de instalación', ctaRelease: 'Abrir centro de Release', ctaPricing: 'Ver precios', oneLineLabel: 'Instalación en una línea', publicHostLabel: 'Host público', metric1Title: 'Recuperable', metric1Body: 'Las rutas de fallo son explícitas, no ocultas.', metric2Title: 'Auditable', metric2Body: 'Los artefactos, reintentos e historial de etapas permanecen visibles.', metric3Title: 'Instalable', metric3Body: 'Los assets públicos y la instalación en una línea ya están activos.', metric4Title: 'Vendible', metric4Body: 'Precios, páginas de release y empaquetado comercial ya están listos.', logicTitle: 'Cómo funciona', logic1: 'AgentRail recibe el trabajo y lo enruta a una trayectoria de ejecución estructurada.', logic2: 'Perpetual Engine impone planificación, implementación, auto-chequeo, pruebas, revisión, reintentos y manejo de bloqueo.', logic3: 'Los operadores pueden inspeccionar resúmenes, reanudar trabajo bloqueado y reiniciar reintentos.', navTitle: 'Rutas principales', navInstall: 'Instalación', navRelease: 'Release', navPricing: 'Precios', navDomain: 'Guía del dominio raíz', insideTitle: 'Qué incluye', inside1: 'Paquete instalable de skill para Hermes', inside2: 'Runtime de Perpetual Engine', inside3: 'CLI, pruebas, ejemplos y flujo demo mock', inside4: 'Assets de release, manuales y PDFs de overview', inside5: 'Controles de operador y flujo de recuperación', whyTitle: 'Por qué los equipos lo quieren', whyBody: 'La mayoría de los sistemas con agentes parecen impresionantes hasta que fallan. AgentRail está diseñado para el momento posterior al fallo: cuando necesitas estado explícito, artefactos claros, reintentos controlados, estados bloqueados seguros y una forma operable de volver a avanzar.', pricingTitle: 'Opciones comerciales', priceTier1Label: 'Beta Early Access', priceTier1Body: 'Para compradores técnicos tempranos que quieren el paquete completo y una ruta de evaluación mock estable.', priceTier2Label: 'Professional Skill Package', priceTier2Body: 'Para builders serios y pequeños equipos que quieren un bundle más sólido y mejores assets.', priceTier3Label: 'Team / Commercial', priceTier3Price: 'Personalizado', priceTier3Body: 'Para despliegue en equipos, licencias comerciales, guía de implementación y soporte premium.', footer: 'Host público oficial: https://www.agentrail.tech/ · HTTPS activo · Release, precios, instalación y páginas de dominio ya están online.'
+      },
+      ar: {
+        eyebrow: 'الموقع الرسمي للمنتج · الإنجليزية هي الافتراضية', heroTitle: 'ضع تسليم الأنظمة متعددة الوكلاء على مسار واضح.', heroCopy: 'يحوّل AgentRail قواعد التوجيه والبرومبتات واستدعاءات النماذج إلى نظام تنفيذ قابل للاستعادة مع انتقالات مراحل واضحة، وسجل آثار، وحالات حظر نظيفة، وتحكم للمشغّل في الاستعادة، ومسار نشر عام جاهز للتثبيت والاختبار والعرض والبيع.', ctaInstall: 'افتح مركز التثبيت', ctaRelease: 'افتح مركز الإصدارات', ctaPricing: 'عرض الأسعار', oneLineLabel: 'تثبيت بسطر واحد', publicHostLabel: 'المضيف العام', metric1Title: 'قابل للاستعادة', metric1Body: 'مسارات الفشل واضحة وليست مخفية.', metric2Title: 'قابل للتدقيق', metric2Body: 'الآثار وإعادات المحاولة وتاريخ المراحل مرئية.', metric3Title: 'قابل للتثبيت', metric3Body: 'الأصول العامة وسطر التثبيت الواحد يعملان الآن.', metric4Title: 'قابل للبيع', metric4Body: 'الأسعار وصفحات الإصدارات والتغليف التجاري جاهزة.', logicTitle: 'كيف يعمل', logic1: 'يستقبل AgentRail عنصر العمل ويوجهه إلى مسار تنفيذ منظم.', logic2: 'يفرض Perpetual Engine مراحل التخطيط والتنفيذ والفحص الذاتي والاختبار والمراجعة وإعادة المحاولة ومعالجة الحظر.', logic3: 'يمكن للمشغّل فحص الملخصات واستئناف العمل المحظور وإعادة ضبط المحاولات.', navTitle: 'المسارات الرئيسية', navInstall: 'التثبيت', navRelease: 'الإصدارات', navPricing: 'الأسعار', navDomain: 'دليل النطاق الجذري', insideTitle: 'ما الذي يتضمنه', inside1: 'حزمة skill قابلة للتثبيت لـ Hermes', inside2: 'Runtime لـ Perpetual Engine', inside3: 'CLI واختبارات وأمثلة ومسار عرض mock', inside4: 'أصول الإصدارات والأدلة وملفات PDF التعريفية', inside5: 'أدوات المشغّل ومسار الاستعادة', whyTitle: 'لماذا تريده الفرق', whyBody: 'تبدو معظم أنظمة الوكلاء مبهرة حتى لحظة الفشل. صُمم AgentRail للحظة التي تلي الفشل: عندما تحتاج إلى حالة واضحة وآثار قابلة للتتبع وإعادات محاولة منضبطة وحالات حظر آمنة وطريق عملي للعودة إلى التقدم.', pricingTitle: 'مسارات الدخول التجارية', priceTier1Label: 'الوصول المبكر التجريبي', priceTier1Body: 'للمشترين التقنيين الأوائل الذين يريدون الحزمة الكاملة ومسار تقييم mock مستقر.', priceTier2Label: 'حزمة Skill احترافية', priceTier2Body: 'للبناة الجادين والفرق الصغيرة الذين يريدون حزمة تسليم أقوى وأصول إصدار أكثر نضجاً.', priceTier3Label: 'فرق / تجاري', priceTier3Price: 'مخصص', priceTier3Body: 'لتوسعة الفرق والترخيص التجاري والمرافقة التنفيذية والدعم المتميز.', footer: 'المضيف العام الرسمي: https://www.agentrail.tech/ · تم تفعيل HTTPS · صفحات الإصدارات والأسعار والتثبيت والنطاق كلها متاحة الآن.'
+      }
+    };
+
+    function setLanguage(lang) {
+      const dict = translations[lang] || translations.en;
+      document.documentElement.lang = lang;
+      document.body.dir = lang === 'ar' ? 'rtl' : 'ltr';
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.dataset.i18n;
+        if (dict[key]) el.textContent = dict[key];
+      });
+      document.querySelectorAll('#lang-chips .chip').forEach(chip => chip.classList.toggle('active', chip.dataset.lang === lang));
+    }
+
+    function setTheme(theme) {
+      document.body.classList.remove('theme-dark', 'theme-light', 'theme-sunset');
+      document.body.classList.add(`theme-${theme}`);
+      document.querySelectorAll('#theme-chips .chip').forEach(chip => chip.classList.toggle('active', chip.dataset.theme === theme));
+    }
+
+    document.querySelectorAll('#lang-chips .chip').forEach(chip => chip.addEventListener('click', () => setLanguage(chip.dataset.lang)));
+    document.querySelectorAll('#theme-chips .chip').forEach(chip => chip.addEventListener('click', () => setTheme(chip.dataset.theme)));
+    setLanguage('en');
+    setTheme('dark');
+  </script>
+</body>
+</html>

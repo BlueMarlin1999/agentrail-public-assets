@@ -4,29 +4,55 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>AgentRail Release Center</title>
-  <style>body{margin:0;font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#07101c;color:#edf4ff}.wrap{max-width:980px;margin:0 auto;padding:32px 18px 54px}.card{background:#0d1a2d;border:1px solid rgba(150,180,220,.16);border-radius:24px;padding:26px;margin-bottom:16px}a{color:#8bd6ff}h1{font-size:44px;line-height:1.05;margin:0 0 14px}h2{margin:0 0 10px}.btn{display:inline-block;padding:12px 16px;border-radius:14px;background:#9ef3c0;color:#032617;text-decoration:none;font-weight:900;margin-right:10px;margin-top:8px}ul{line-height:1.8;color:#a6b7d2}pre{background:#06101d;color:#e1f3ff;padding:14px;border-radius:16px;white-space:pre-wrap}</style>
+  <style>
+    body{margin:0;font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#07101c;color:#edf4ff}
+    .wrap{max-width:1040px;margin:0 auto;padding:32px 18px 54px}
+    .card{background:#0d1a2d;border:1px solid rgba(150,180,220,.16);border-radius:24px;padding:26px;margin-bottom:16px}
+    a{color:#8bd6ff} h1{font-size:44px;line-height:1.05;margin:0 0 14px} h2{margin:0 0 10px}
+    p,li{color:#a6b7d2;line-height:1.75} .btn{display:inline-block;padding:12px 16px;border-radius:14px;background:#9ef3c0;color:#032617;text-decoration:none;font-weight:900;margin-right:10px;margin-top:8px}
+    pre{background:#06101d;color:#e1f3ff;padding:14px;border-radius:16px;white-space:pre-wrap;word-break:break-word}
+    .nav{margin:0 0 12px;color:#d9e7ff;font-size:14px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}@media(max-width:900px){.grid{grid-template-columns:1fr}}
+  </style>
 </head>
 <body>
   <div class="wrap">
     <div class="card">
+      <div class="nav">导航：<a href="./agentrail-install.html">安装</a> · <a href="./release.html">Release</a> · <a href="./pricing.html">价格</a> · <a href="./root-domain-redirect.html">域名收口</a></div>
       <h1>AgentRail Release Center</h1>
-      <p style="color:#a6b7d2;line-height:1.75">这里汇总当前公开发布版本、下载入口、安装入口和验证命令。适合直接发给准备试用、准备购买、或者准备内部评估的人。</p>
-      <a class="btn" href="https://github.com/BlueMarlin1999/agentrail-public-assets/releases/tag/v0.1.0-beta.1">打开 Release</a>
+      <p>这里汇总当前公开发布版本、下载入口、安装入口和验证命令。适合直接发给准备试用、准备购买，或者准备内部评估的人。</p>
+      <a class="btn" href="https://github.com/BlueMarlin1999/agentrail-public-assets/releases/tag/v0.1.0-beta.1">打开 GitHub Release</a>
       <a class="btn" href="./agentrail-install.html">打开安装页</a>
       <a class="btn" href="./pricing.html">打开价格页</a>
       <a class="btn" href="./root-domain-redirect.html">根域名收口说明</a>
     </div>
+    <div class="grid">
+      <div class="card">
+        <h2>当前版本</h2>
+        <ul>
+          <li>Version: v0.1.0-beta.1</li>
+          <li>Channel: beta</li>
+          <li>Package: Friend Test Pack + Skill + Runtime</li>
+          <li>Public host: https://www.agentrail.tech/</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h2>一行安装</h2>
+        <pre>curl -fsSL https://www.agentrail.tech/install-online.sh | bash</pre>
+      </div>
+    </div>
     <div class="card">
-      <h2>当前版本</h2>
+      <h2>直接下载</h2>
       <ul>
-        <li>Version: v0.1.0-beta.1</li>
-        <li>Channel: beta</li>
-        <li>Package: Friend Test Pack + Skill + Runtime</li>
+        <li><a href="https://github.com/BlueMarlin1999/agentrail-public-assets/releases/download/v0.1.0-beta.1/AgentRail-Friend-Test-Pack-v0.1.0-beta.1.zip">ZIP 完整测试包</a></li>
+        <li><a href="https://github.com/BlueMarlin1999/agentrail-public-assets/releases/download/v0.1.0-beta.1/AgentRail-Friend-Test-Pack-v0.1.0-beta.1.tar.gz">tar.gz 完整测试包</a></li>
       </ul>
     </div>
     <div class="card">
-      <h2>一行安装</h2>
-      <pre>curl -fsSL https://bluemarlin1999.github.io/agentrail-public-assets/install-online.sh | bash</pre>
+      <h2>验证命令</h2>
+      <pre>python3 perpetual_engine/cli.py version
+python3 perpetual_engine/cli.py doctor
+python3 -m unittest discover -s tests -v
+PERPETUAL_REQUIRED_TOOLS= PERPETUAL_EXECUTION_MODE=mock ./run_full_demo.sh</pre>
     </div>
   </div>
 </body>

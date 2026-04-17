@@ -5,71 +5,49 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>AgentRail 价格与发售方案</title>
   <style>
-    :root {
-      --bg:#081220; --panel:#0d1a2d; --line:rgba(151,180,230,.18); --text:#eef4ff; --muted:#9dafca;
-      --green:#86efac; --cyan:#7dd3fc; --violet:#c4b5fd; --amber:#fcd34d;
-    }
+    :root { --bg:#081220; --panel:#0d1a2d; --line:rgba(151,180,230,.18); --text:#eef4ff; --muted:#9dafca; --green:#86efac; --cyan:#7dd3fc; }
     *{box-sizing:border-box} body{margin:0;background:linear-gradient(180deg,#06101d,#081523);color:var(--text);font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
-    .wrap{max-width:1160px;margin:0 auto;padding:36px 20px 64px}.hero,.card{background:rgba(13,26,45,.92);border:1px solid var(--line);border-radius:24px}
-    .hero{padding:30px;margin-bottom:18px}.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.card{padding:24px}.badge{display:inline-block;padding:8px 12px;border-radius:999px;background:rgba(134,239,172,.1);color:var(--green);font-weight:800;font-size:12px;letter-spacing:.04em;text-transform:uppercase}
+    .wrap{max-width:1160px;margin:0 auto;padding:36px 20px 64px}.hero,.card{background:rgba(13,26,45,.92);border:1px solid var(--line);border-radius:24px}.hero{padding:30px;margin-bottom:18px}.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.card{padding:24px}
+    .badge{display:inline-block;padding:8px 12px;border-radius:999px;background:rgba(134,239,172,.1);color:var(--green);font-weight:800;font-size:12px;letter-spacing:.04em;text-transform:uppercase}
     h1{font-size:clamp(32px,5vw,54px);line-height:1.05;margin:16px 0 12px} h2{margin:0 0 12px;font-size:24px} h3{margin:0 0 8px;font-size:20px}
     p,li{line-height:1.72;color:var(--muted)} .price{font-size:42px;font-weight:900;margin:8px 0 10px}.price small{font-size:16px;color:var(--muted);font-weight:700}
     ul{padding-left:20px;margin:0}.cta{display:inline-block;margin-top:16px;padding:12px 16px;border-radius:14px;background:linear-gradient(135deg,var(--cyan),#d5f1ff);color:#032237;text-decoration:none;font-weight:900}
     .subgrid{display:grid;grid-template-columns:1.2fr .8fr;gap:18px;margin-top:18px}.mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;background:#06101d;border:1px solid rgba(125,211,252,.12);padding:14px 16px;border-radius:16px;white-space:pre-wrap;word-break:break-word;color:#dff4ff}
-    table{width:100%;border-collapse:collapse} th,td{text-align:left;padding:12px 10px;border-bottom:1px solid rgba(151,180,230,.12);vertical-align:top} th{color:var(--text)}
+    table{width:100%;border-collapse:collapse} th,td{text-align:left;padding:12px 10px;border-bottom:1px solid rgba(151,180,230,.12);vertical-align:top} th{color:var(--text)} .nav{margin:0 0 12px;color:#d9e7ff;font-size:14px}
     @media(max-width:960px){.grid,.subgrid{grid-template-columns:1fr}.wrap{padding:20px 14px 40px}}
   </style>
 </head>
 <body>
   <div class="wrap">
     <section class="hero">
+      <div class="nav">导航：<a href="./agentrail-install.html">安装</a> · <a href="./release.html">Release</a> · <a href="./pricing.html">价格</a> · <a href="./root-domain-redirect.html">域名收口</a></div>
       <span class="badge">Pricing · AgentRail</span>
       <h1>先把产品卖清楚，再把安装做顺滑</h1>
       <p>这页是 AgentRail 当前最适合对外使用的发售说明。你可以把它当作报价页、预售页、销售沟通页，也可以直接给早期朋友测试用户看。当前建议仍然以下载包交付，不先承诺托管 SaaS。</p>
     </section>
-
     <section class="grid">
       <article class="card">
         <h3>Beta Early Access</h3>
         <div class="price">$99 <small>/ 单人早期体验</small></div>
         <p>适合最早一批技术买家、朋友测试、独立开发者快速上手。</p>
-        <ul>
-          <li>完整 Friend Test Pack</li>
-          <li>Skill + Runtime</li>
-          <li>CLI / tests / examples</li>
-          <li>mock 演示路径</li>
-          <li>文档与基础支持边界</li>
-        </ul>
+        <ul><li>完整 Friend Test Pack</li><li>Skill + Runtime</li><li>CLI / tests / examples</li><li>mock 演示路径</li><li>文档与基础支持边界</li></ul>
         <a class="cta" href="./agentrail-install.html">查看安装与下载</a>
       </article>
       <article class="card">
         <h3>Professional Skill Package</h3>
         <div class="price">$299 <small>/ 专业交付版</small></div>
         <p>适合想认真落地、要 operator runbook、要更完整交付资产的小团队。</p>
-        <ul>
-          <li>包含 $99 档全部内容</li>
-          <li>更完整的交付文档</li>
-          <li>onboarding / runbook / checklist</li>
-          <li>商业包装素材</li>
-          <li>更适合作为对外交付起点</li>
-        </ul>
-        <a class="cta" href="https://github.com/BlueMarlin1999/agentrail-public-assets/releases/tag/v0.1.0-beta.1">查看正式 Release</a>
+        <ul><li>包含 $99 档全部内容</li><li>更完整的交付文档</li><li>onboarding / runbook / checklist</li><li>商业包装素材</li><li>更适合作为对外交付起点</li></ul>
+        <a class="cta" href="./release.html">查看正式 Release</a>
       </article>
       <article class="card">
         <h3>Team / Commercial License</h3>
         <div class="price">定制 <small>/ 团队与商业许可</small></div>
         <p>适合团队内部推广、商业转售、白标、定制接入与实施陪跑。</p>
-        <ul>
-          <li>团队内部使用授权</li>
-          <li>定制 provider / workflow 建议</li>
-          <li>上线支持或实施顾问</li>
-          <li>转售与白标另签</li>
-          <li>价格按范围和支持强度定</li>
-        </ul>
-        <a class="cta" href="https://github.com/BlueMarlin1999/agentrail-public-assets">查看公开分发仓库</a>
+        <ul><li>团队内部使用授权</li><li>定制 provider / workflow 建议</li><li>上线支持或实施顾问</li><li>转售与白标另签</li><li>价格按范围和支持强度定</li></ul>
+        <a class="cta" href="./root-domain-redirect.html">查看域名与交付说明</a>
       </article>
     </section>
-
     <section class="subgrid">
       <div class="card">
         <h2>建议你现在怎么收</h2>
@@ -84,12 +62,7 @@
       </div>
       <div class="card">
         <h2>当前许可边界</h2>
-        <ul>
-          <li>默认卖下载包，不卖托管服务</li>
-          <li>默认允许内部评估与内部运营使用</li>
-          <li>转售、白标、再分发要单独授权</li>
-          <li>beta 阶段建议 7 天安装失败可退款，或不退款但给有限支持</li>
-        </ul>
+        <ul><li>默认卖下载包，不卖托管服务</li><li>默认允许内部评估与内部运营使用</li><li>转售、白标、再分发要单独授权</li><li>beta 阶段建议 7 天安装失败可退款，或不退款但给有限支持</li></ul>
         <div class="mono" style="margin-top:14px;">推荐默认公开报价：
 Beta Early Access: $99
 Professional Skill Package: $299

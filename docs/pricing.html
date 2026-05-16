@@ -70,7 +70,7 @@ const translations={
     footer:'自用说明：安装、release 验证和 https://www.agentrail.tech/ 的 AgentRail 工作流检查。'
   }
 };
-function setLanguage(lang){const dict=translations[lang]||translations.en;document.documentElement.lang=lang;document.body.dir=lang==='ar'?'rtl':'ltr';document.querySelectorAll('[data-i18n]').forEach(el=>{const key=el.dataset.i18n;if(dict[key])el.textContent=dict[key];});document.querySelectorAll('#lang-chips .chip').forEach(chip=>chip.classList.toggle('active',chip.dataset.lang===lang));}
+function setLanguage(lang){const dict=translations[lang]||translations.en;document.documentElement.lang=lang;document.body.dir='ltr';document.querySelectorAll('[data-i18n]').forEach(el=>{const key=el.dataset.i18n;if(dict[key])el.textContent=dict[key];});document.querySelectorAll('#lang-chips .chip').forEach(chip=>chip.classList.toggle('active',chip.dataset.lang===lang));}
 function setTheme(theme){document.body.classList.remove('theme-dark','theme-light','theme-sunset');document.body.classList.add(`theme-${theme}`);document.querySelectorAll('#theme-chips .chip').forEach(chip=>chip.classList.toggle('active',chip.dataset.theme===theme));}
 document.querySelectorAll('#lang-chips .chip').forEach(chip=>chip.addEventListener('click',()=>setLanguage(chip.dataset.lang)));
 document.querySelectorAll('#theme-chips .chip').forEach(chip=>chip.addEventListener('click',()=>setTheme(chip.dataset.theme)));

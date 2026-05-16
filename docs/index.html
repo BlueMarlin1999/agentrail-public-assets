@@ -200,16 +200,16 @@
         <div class="control-group">
           <div class="control-label">Language</div>
           <div class="chips" id="lang-chips">
-            <button class="chip active" data-lang="en">EN</button>
-            <button class="chip" data-lang="zh">中文</button>
+            <button class="chip active" data-lang="en" aria-pressed="true">EN</button>
+            <button class="chip" data-lang="zh" aria-pressed="false">中文</button>
           </div>
         </div>
         <div class="control-group">
           <div class="control-label">Background</div>
           <div class="chips" id="theme-chips">
-            <button class="chip active" data-theme="dark">Night</button>
-            <button class="chip" data-theme="light">Light</button>
-            <button class="chip" data-theme="sunset">Sunset</button>
+            <button class="chip active" data-theme="dark" aria-pressed="true">Night</button>
+            <button class="chip" data-theme="light" aria-pressed="false">Light</button>
+            <button class="chip" data-theme="sunset" aria-pressed="false">Sunset</button>
           </div>
         </div>
       </div>
@@ -369,13 +369,21 @@
         const key = el.dataset.i18n;
         if (dict[key]) el.textContent = dict[key];
       });
-      document.querySelectorAll('#lang-chips .chip').forEach(chip => chip.classList.toggle('active', chip.dataset.lang === lang));
+      document.querySelectorAll('#lang-chips .chip').forEach(chip => {
+        const active = chip.dataset.lang === lang;
+        chip.classList.toggle('active', active);
+        chip.setAttribute('aria-pressed', String(active));
+      });
     }
 
     function setTheme(theme) {
       document.body.classList.remove('theme-dark', 'theme-light', 'theme-sunset');
       document.body.classList.add(`theme-${theme}`);
-      document.querySelectorAll('#theme-chips .chip').forEach(chip => chip.classList.toggle('active', chip.dataset.theme === theme));
+      document.querySelectorAll('#theme-chips .chip').forEach(chip => {
+        const active = chip.dataset.theme === theme;
+        chip.classList.toggle('active', active);
+        chip.setAttribute('aria-pressed', String(active));
+      });
     }
 
     document.querySelectorAll('#lang-chips .chip').forEach(chip => chip.addEventListener('click', () => setLanguage(chip.dataset.lang)));

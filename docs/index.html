@@ -99,6 +99,8 @@
       --hero-b: rgba(180, 125, 255, 0.20);
     }
     a { color: inherit; }
+    .skip-nav{position:absolute;left:-9999px;top:0;background:var(--cyan);color:#06111d;padding:8px 12px;border-radius:8px;font-weight:800;text-decoration:none;z-index:100}
+    .skip-nav:focus{left:12px;top:12px}
     .wrap { width: 100%; max-width: 1180px; margin: 0 auto; padding: 26px 20px 60px; }
     .topbar {
       display: flex; align-items: center; justify-content: space-between; gap: 20px;
@@ -187,6 +189,7 @@
   </style>
 </head>
 <body class="theme-dark">
+  <a href="#main" class="skip-nav">Skip to main content</a>
   <div class="wrap">
     <div class="topbar">
       <div class="brand">
@@ -215,6 +218,7 @@
       </div>
     </div>
 
+    <main id="main">
     <section class="hero">
       <div class="eyebrow" data-i18n="eyebrow">Official Product Site · English Default</div>
       <h1 data-i18n="heroTitle">Put multi-agent delivery on rails.</h1>
@@ -333,6 +337,7 @@
     </section>
 
     <div class="footer" data-i18n="footer">Official public host: https://www.agentrail.tech/ · HTTPS is live · Release, install, self-use notes, and domain-handling pages are all online.</div>
+    </main>
   </div>
 
   <script>

@@ -1,7 +1,11 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-PROFILE="${1:-default}"
+PROFILE="${1-default}"
+if [[ ! "$PROFILE" =~ ^[A-Za-z0-9._-]+$ ]]; then
+  echo "Invalid profile name: $PROFILE (allowed chars: A-Z a-z 0-9 . _ -)" >&2
+  exit 1
+fi
 VERSION="v0.1.0-beta.1"
 RELEASE_BASE_URL="${AGENTRAIL_RELEASE_BASE_URL:-https://github.com/BlueMarlin1999/agentrail-public-assets/releases/download/${VERSION}}"
 ARCHIVE_NAME="AgentRail-Friend-Test-Pack-v0.1.0-beta.1.tar.gz"

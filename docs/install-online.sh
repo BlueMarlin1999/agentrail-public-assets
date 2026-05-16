@@ -38,6 +38,10 @@ printf 'Downloading: %s\n' "$ARCHIVE_URL"
 
 mkdir -p "$EXTRACT_DIR"
 curl -fL --retry 3 --retry-delay 1 "$ARCHIVE_URL" -o "$ARCHIVE_PATH"
+if tar -tzf "$ARCHIVE_PATH" | grep -qE '(^|/)\.\.(/|$)'; then
+  echo "Refusing to extract archive containing parent-traversal paths" >&2
+  exit 1
+fi
 tar -xzf "$ARCHIVE_PATH" -C "$EXTRACT_DIR"
 
 SRC_DIR="$EXTRACT_DIR/AgentRail-Friend-Test-Pack-v0.1.0-beta.1/hermes-skill/agentrail"

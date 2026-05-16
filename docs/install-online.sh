@@ -37,7 +37,7 @@ printf 'Release source: %s\n' "$RELEASE_BASE_URL"
 printf 'Downloading: %s\n' "$ARCHIVE_URL"
 
 mkdir -p "$EXTRACT_DIR"
-curl -fL --retry 3 --retry-delay 1 "$ARCHIVE_URL" -o "$ARCHIVE_PATH"
+curl -fL --retry 3 --retry-delay 1 --connect-timeout 10 --max-time 120 "$ARCHIVE_URL" -o "$ARCHIVE_PATH"
 if tar -tzf "$ARCHIVE_PATH" | grep -qE '(^|/)\.\.(/|$)'; then
   echo "Refusing to extract archive containing parent-traversal paths" >&2
   exit 1

@@ -3,17 +3,17 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>AgentRail — Put Multi-Agent Delivery on Rails</title>
-  <meta name="description" content="AgentRail turns multi-agent execution into a recoverable, auditable delivery system with installable workflows, release assets, operator controls, and production-grade discipline." />
+  <title>AgentRail — Control Room for Agent Work</title>
+  <meta name="description" content="AgentRail is a personal-use control room for turning agent work into tracked workitems, staged checks, release evidence, and repeatable website update SOPs." />
   <meta name="theme-color" content="#050816" />
   <meta property="og:type" content="website" />
-  <meta property="og:title" content="AgentRail — Put Multi-Agent Delivery on Rails" />
-  <meta property="og:description" content="AgentRail turns multi-agent execution into a recoverable, auditable delivery system with installable workflows, release assets, operator controls, and production-grade discipline." />
+  <meta property="og:title" content="AgentRail — Control Room for Agent Work" />
+  <meta property="og:description" content="AgentRail is a personal-use control room for tracked workitems, staged checks, release evidence, and repeatable website update SOPs." />
   <meta property="og:url" content="https://www.agentrail.tech/" />
   <meta property="og:image" content="https://www.agentrail.tech/assets/logo-ar.svg" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="AgentRail — Put Multi-Agent Delivery on Rails" />
-  <meta name="twitter:description" content="AgentRail turns multi-agent execution into a recoverable, auditable delivery system with installable workflows, release assets, operator controls, and production-grade discipline." />
+  <meta name="twitter:title" content="AgentRail — Control Room for Agent Work" />
+  <meta name="twitter:description" content="AgentRail is a personal-use control room for tracked workitems, staged checks, release evidence, and repeatable website update SOPs." />
   <meta name="twitter:image" content="https://www.agentrail.tech/assets/logo-ar.svg" />
   <link rel="icon" type="image/svg+xml" href="./assets/logo-ar.svg" />
   <link rel="apple-touch-icon" href="./assets/logo-ar.svg" />
@@ -99,6 +99,8 @@
       --hero-b: rgba(180, 125, 255, 0.20);
     }
     a { color: inherit; }
+    .skip-nav{position:absolute;left:-9999px;top:0;background:var(--cyan);color:#06111d;padding:8px 12px;border-radius:8px;font-weight:800;text-decoration:none;z-index:100}
+    .skip-nav:focus{left:12px;top:12px}
     .wrap { width: 100%; max-width: 1180px; margin: 0 auto; padding: 26px 20px 60px; }
     .topbar {
       display: flex; align-items: center; justify-content: space-between; gap: 20px;
@@ -123,7 +125,7 @@
     .hero, .card {
       background: var(--panel); border: 1px solid var(--line); border-radius: 28px; box-shadow: var(--shadow); backdrop-filter: blur(14px);
     }
-    .hero { padding: 34px; position: relative; overflow: hidden; }
+    .hero { padding: 30px; position: relative; overflow: hidden; }
     .hero::before {
       content: ""; position: absolute; inset: 0; pointer-events: none;
       background: linear-gradient(120deg, rgba(73,200,255,.10), transparent 36%, rgba(143,98,255,.08) 68%, transparent 100%);
@@ -134,27 +136,45 @@
       background: radial-gradient(circle, rgba(255,255,255,.11) 0%, rgba(255,255,255,0) 70%);
       pointer-events: none;
     }
+    .hero > * { position: relative; z-index: 1; }
+    .hero-layout { display: grid; grid-template-columns: minmax(0, 1fr) minmax(320px, 390px); gap: 28px; align-items: stretch; max-width: 100%; }
+    .hero-content { min-width: 0; max-width: 100%; display: flex; flex-direction: column; justify-content: center; }
     .eyebrow {
       display: inline-flex; align-items: center; gap: 8px; padding: 8px 12px; border-radius: 999px;
-      background: rgba(143, 241, 188, 0.1); color: var(--green); font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: .07em;
+      background: rgba(143, 241, 188, 0.1); color: var(--green); font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: .07em; line-height: 1.35; max-width: 100%;
     }
-    h1 { margin: 18px 0 14px; font-size: clamp(38px, 6vw, 70px); line-height: 1.02; max-width: 930px; }
-    .hero-copy { max-width: 780px; font-size: 18px; line-height: 1.8; color: var(--muted); }
+    h1 { margin: 18px 0 14px; font-size: 64px; line-height: 1.02; max-width: 840px; overflow-wrap: break-word; }
+    .hero-copy { max-width: 730px; font-size: 18px; line-height: 1.72; color: var(--muted); overflow-wrap: break-word; }
     .actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 24px; }
     .btn {
       display: inline-flex; align-items: center; justify-content: center; gap: 8px; text-decoration: none;
-      padding: 14px 18px; border-radius: 15px; font-weight: 900; border: 1px solid transparent;
+      padding: 14px 18px; border-radius: 15px; font-weight: 900; border: 1px solid transparent; transition: transform .16s ease, box-shadow .16s ease, border-color .16s ease;
     }
     .btn-primary { background: linear-gradient(135deg, var(--green), #cfffe0); color: #062516; }
     .btn-secondary { background: linear-gradient(135deg, var(--cyan), #d6f4ff); color: #032236; }
     .btn-ghost { border-color: var(--line); background: rgba(255,255,255,.03); color: var(--text); }
+    .btn:hover { transform: translateY(-1px); box-shadow: 0 16px 34px rgba(0,0,0,.18); }
+    .btn:focus-visible, .chip:focus-visible, a:focus-visible { outline: 2px solid var(--cyan); outline-offset: 3px; }
     .hero-grid { margin-top: 24px; display: grid; grid-template-columns: minmax(0,1.15fr) minmax(0,.85fr); gap: 18px; }
     .hero-panel {
       padding: 18px; border-radius: 22px; background: var(--panel-2); border: 1px solid rgba(255,255,255,.06);
+      min-width: 0; max-width: 100%;
     }
-    .code { white-space: pre-wrap; word-break: break-word; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; line-height: 1.65; color: #dff4ff; }
+    .code { white-space: pre-wrap; word-break: normal; overflow-wrap: anywhere; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; line-height: 1.65; color: #dff4ff; }
+    .rail-console { min-width: 0; max-width: 100%; border-radius: 24px; padding: 18px; background: linear-gradient(180deg, rgba(255,255,255,.075), rgba(255,255,255,.032)); border: 1px solid rgba(255,255,255,.10); box-shadow: inset 0 1px 0 rgba(255,255,255,.08), 0 24px 60px rgba(0,0,0,.24); }
+    .console-top { display: flex; justify-content: space-between; gap: 12px; align-items: center; margin-bottom: 16px; color: var(--muted); font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: .08em; }
+    .status-pill { color: #062516; background: linear-gradient(135deg, var(--green), #d9ffe8); border-radius: 999px; padding: 6px 9px; white-space: nowrap; }
+    .rail-track { display: grid; gap: 10px; }
+    .rail-step { display: grid; grid-template-columns: 34px minmax(0, 1fr); gap: 10px; align-items: center; padding: 11px; border-radius: 16px; border: 1px solid rgba(255,255,255,.07); background: rgba(3,10,24,.34); }
+    .rail-step span { width: 34px; height: 34px; display: inline-flex; align-items: center; justify-content: center; border-radius: 12px; color: #06111d; background: var(--cyan); font-size: 12px; font-weight: 900; }
+    .rail-step strong { display: block; margin-bottom: 2px; }
+    .rail-step small { color: var(--muted); line-height: 1.45; }
+    .rail-step.active { border-color: rgba(55,243,208,.34); background: rgba(55,243,208,.08); }
+    .rail-step.active span { background: var(--green); }
+    .console-code { margin-top: 14px; padding: 13px; border-radius: 16px; background: rgba(1,7,18,.72); border: 1px solid rgba(73,200,255,.14); color: #dff4ff; font: 12px/1.6 ui-monospace, SFMono-Regular, Menlo, monospace; overflow-wrap: anywhere; }
     .grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 18px; margin-top: 18px; }
-    .card { min-width: 0; padding: 24px; }
+    .card { min-width: 0; padding: 24px; transition: border-color .16s ease, transform .16s ease; }
+    .card:hover { border-color: rgba(73,200,255,.34); transform: translateY(-1px); }
     .span-4 { grid-column: span 4; }
     .span-5 { grid-column: span 5; }
     .span-6 { grid-column: span 6; }
@@ -178,15 +198,28 @@
     @media (max-width: 980px) {
       .topbar { flex-direction: column; align-items: stretch; }
       .top-controls { justify-content: flex-start; }
-      .hero-grid, .pricing, .metric-row { grid-template-columns: 1fr; }
+      .hero-layout, .hero-grid, .pricing, .metric-row { grid-template-columns: 1fr; }
       .grid { grid-template-columns: 1fr; }
       .span-4, .span-5, .span-6, .span-7, .span-8, .span-12 { grid-column: span 1; }
       .hero { padding: 24px; }
       h1 { font-size: 42px; }
     }
+    @media (max-width: 560px) {
+      .wrap { padding: 18px 14px 44px; }
+      .hero { padding: 20px; }
+      .hero-content, .hero-grid, .actions, .rail-console, .metric-row { width: 100%; max-width: 300px; }
+      .hero-panel, .metric { max-width: 300px; }
+      .eyebrow { border-radius: 16px; font-size: 11px; }
+      h1 { font-size: 30px; max-width: 13ch; }
+      .hero-copy { font-size: 16px; max-width: 34ch; }
+      .code { font-size: 13px; }
+      .actions .btn { width: 100%; }
+    }
+    @media (prefers-reduced-motion: reduce){*,*::before,*::after{transition:none!important;animation:none!important;scroll-behavior:auto!important}}
   </style>
 </head>
 <body class="theme-dark">
+  <a href="#main" class="skip-nav">Skip to main content</a>
   <div class="wrap">
     <div class="topbar">
       <div class="brand">
@@ -200,54 +233,69 @@
         <div class="control-group">
           <div class="control-label">Language</div>
           <div class="chips" id="lang-chips">
-            <button class="chip active" data-lang="en">EN</button>
-            <button class="chip" data-lang="zh">中文</button>
+            <button type="button" class="chip active" data-lang="en" aria-pressed="true">EN</button>
+            <button type="button" class="chip" data-lang="zh" aria-pressed="false">中文</button>
           </div>
         </div>
         <div class="control-group">
           <div class="control-label">Background</div>
           <div class="chips" id="theme-chips">
-            <button class="chip active" data-theme="dark">Night</button>
-            <button class="chip" data-theme="light">Light</button>
-            <button class="chip" data-theme="sunset">Sunset</button>
+            <button type="button" class="chip active" data-theme="dark" aria-pressed="true">Night</button>
+            <button type="button" class="chip" data-theme="light" aria-pressed="false">Light</button>
+            <button type="button" class="chip" data-theme="sunset" aria-pressed="false">Sunset</button>
           </div>
         </div>
       </div>
     </div>
 
+    <main id="main">
     <section class="hero">
-      <div class="eyebrow" data-i18n="eyebrow">Official Product Site · English Default</div>
-      <h1 data-i18n="heroTitle">Put multi-agent delivery on rails.</h1>
-      <p class="hero-copy" data-i18n="heroCopy">AgentRail turns routing rules, prompts, and model calls into a recoverable execution system with explicit stage transitions, artifact trails, clean blocked states, and operator recovery controls. This public site is currently maintained as a personal-use install, release, and SOP hub for testing AgentRail on my own workflows.</p>
-      <div class="actions">
-        <a class="btn btn-primary" href="./agentrail-install.html" data-i18n="ctaInstall">Open Install Center</a>
-        <a class="btn btn-secondary" href="./release.html" data-i18n="ctaRelease">Open Release Center</a>
-        <a class="btn btn-ghost" href="./pricing.html" data-i18n="ctaPricing">View Self-use Notes</a>
-      </div>
-      <div class="hero-grid">
-        <div class="hero-panel">
-          <h3 data-i18n="oneLineLabel">One-line install</h3>
-          <div class="code">curl -fsSL https://www.agentrail.tech/install-online.sh | bash</div>
+      <div class="hero-layout">
+        <div class="hero-content">
+          <div class="eyebrow" data-i18n="eyebrow">Personal control room · English default</div>
+          <h1 data-i18n="heroTitle">AgentRail control room for agent work.</h1>
+          <p class="hero-copy" data-i18n="heroCopy">AgentRail is my operating rail for assigning agent tasks, checking website changes, recording evidence, and publishing agentrail.tech only after install, release, and review paths are clean.</p>
+          <div class="actions">
+            <a class="btn btn-primary" href="./agentrail-install.html" data-i18n="ctaInstall">Open Install Center</a>
+            <a class="btn btn-secondary" href="./release.html" data-i18n="ctaRelease">Open Release Center</a>
+            <a class="btn btn-ghost" href="./pricing.html" data-i18n="ctaPricing">View Self-use SOP</a>
+          </div>
+          <div class="hero-grid">
+            <div class="hero-panel">
+              <h3 data-i18n="oneLineLabel">Operator command</h3>
+              <div class="code">curl -fsSL https://www.agentrail.tech/install-online.sh | bash</div>
+            </div>
+            <div class="hero-panel">
+              <h3 data-i18n="publicHostLabel">Canonical host</h3>
+              <div class="code">https://www.agentrail.tech/</div>
+            </div>
+          </div>
         </div>
-        <div class="hero-panel">
-          <h3 data-i18n="publicHostLabel">Public host</h3>
-          <div class="code">https://www.agentrail.tech/</div>
+        <div class="rail-console" aria-label="AgentRail workitem workflow preview">
+          <div class="console-top"><span>Workitem rail</span><span class="status-pill">Active</span></div>
+          <div class="rail-track">
+            <div class="rail-step"><span>01</span><div><strong data-i18n="rail1Title">Intake</strong><small data-i18n="rail1Body">Goal, scope, repo, and acceptance criteria.</small></div></div>
+            <div class="rail-step active"><span>02</span><div><strong data-i18n="rail2Title">Implement</strong><small data-i18n="rail2Body">Codex, Claude Code, or another worker updates the repo.</small></div></div>
+            <div class="rail-step"><span>03</span><div><strong data-i18n="rail3Title">Verify</strong><small data-i18n="rail3Body">Smoke tests, URL checks, artifacts, and review notes.</small></div></div>
+            <div class="rail-step"><span>04</span><div><strong data-i18n="rail4Title">Publish</strong><small data-i18n="rail4Body">Merge only when the evidence trail is clean.</small></div></div>
+          </div>
+          <div class="console-code">state: IMPLEMENTING<br />next: run checks<br />target: www.agentrail.tech</div>
         </div>
       </div>
       <div class="metric-row">
-        <div class="metric"><strong data-i18n="metric1Title">Recoverable</strong><span data-i18n="metric1Body">Failure paths are explicit, not hidden.</span></div>
-        <div class="metric"><strong data-i18n="metric2Title">Auditable</strong><span data-i18n="metric2Body">Artifacts, retries, and stage history stay visible.</span></div>
-        <div class="metric"><strong data-i18n="metric3Title">Installable</strong><span data-i18n="metric3Body">Public release assets and one-line install are live.</span></div>
-        <div class="metric"><strong data-i18n="metric4Title">Personal-use</strong><span data-i18n="metric4Body">The site documents my own install, release, and verification workflow.</span></div>
+        <div class="metric"><strong data-i18n="metric1Title">Workitem state</strong><span data-i18n="metric1Body">Every task has a stage, owner, and next action.</span></div>
+        <div class="metric"><strong data-i18n="metric2Title">Evidence trail</strong><span data-i18n="metric2Body">Checks, changed files, and notes stay attached.</span></div>
+        <div class="metric"><strong data-i18n="metric3Title">Release path</strong><span data-i18n="metric3Body">Install script, release page, and downloads stay verifiable.</span></div>
+        <div class="metric"><strong data-i18n="metric4Title">Personal-use</strong><span data-i18n="metric4Body">Built for my own agentrail.tech operating loop.</span></div>
       </div>
     </section>
 
     <section class="grid">
       <div class="card span-7">
         <h2 data-i18n="logicTitle">How it works</h2>
-        <div class="stage"><small>STEP 01</small><span data-i18n="logic1">AgentRail receives the work item and routes it into a structured execution path.</span></div>
-        <div class="stage"><small>STEP 02</small><span data-i18n="logic2">Perpetual Engine enforces stage progression for planning, implementation, self-check, testing, review, retries, and blocked-state handling.</span></div>
-        <div class="stage"><small>STEP 03</small><span data-i18n="logic3">Operators can inspect summaries, resume blocked work, reset retries, and preserve a clean operational trail.</span></div>
+        <div class="stage"><small>STEP 01</small><span data-i18n="logic1">Create a workitem with the target page, repo path, scope, risk level, and acceptance checks.</span></div>
+        <div class="stage"><small>STEP 02</small><span data-i18n="logic2">Run the worker through implementation, self-check, testing, review, retry, and blocked-state handling.</span></div>
+        <div class="stage"><small>STEP 03</small><span data-i18n="logic3">Publish only after the artifact trail explains what changed, what passed, and what still needs judgment.</span></div>
       </div>
       <div class="card span-5">
         <h2 data-i18n="navTitle">Primary paths</h2>
@@ -270,24 +318,24 @@
         </ul>
       </div>
       <div class="card span-8">
-        <h2 data-i18n="whyTitle">Why teams want it</h2>
-        <p data-i18n="whyBody">Most agent systems look impressive until they fail. AgentRail is built for the moment after failure: when you need explicit state, clear artifacts, controlled retries, safe blocked states, and an operator-friendly way back to forward progress.</p>
+        <h2 data-i18n="whyTitle">Problem it solves</h2>
+        <p data-i18n="whyBody">Agent work is easy to start and hard to trust. AgentRail gives each task a visible state, a recovery path, and enough evidence that I can decide whether a website update is ready to merge.</p>
       </div>
 
       <div class="card span-12">
-        <h2 data-i18n="orchestrateTitle">Why Antigravity + Claude Code + Codex + OpenCode is so attractive</h2>
+        <h2 data-i18n="orchestrateTitle">Where it fits</h2>
         <div class="pricing">
           <div class="stage">
-            <small data-i18n="orchestrateTier1Label">Antigravity</small>
-            <p data-i18n="orchestrateTier1Body">Use Antigravity as the orchestration surface or control-plane entrypoint. It gives teams a clean front door for task intake while AgentRail handles state, audit, retries, and operational discipline underneath.</p>
+            <small data-i18n="orchestrateTier1Label">Dispatch</small>
+            <p data-i18n="orchestrateTier1Body">Use Antigravity or a similar surface to shape the request, then let AgentRail hold the workitem, scope, acceptance criteria, and next action.</p>
           </div>
           <div class="stage">
-            <small data-i18n="orchestrateTier2Label">Claude Code / Codex / OpenCode</small>
-            <p data-i18n="orchestrateTier2Body">Plug in the best coding worker for the job: Claude Code for deep iterative implementation, Codex for full-auto repo work and batch issue fixing, OpenCode for provider-agnostic autonomous coding and review loops.</p>
+            <small data-i18n="orchestrateTier2Label">Workers</small>
+            <p data-i18n="orchestrateTier2Body">Send implementation or review work to Codex, Claude Code, or OpenCode while keeping the state machine and evidence outside the worker's chat window.</p>
           </div>
           <div class="stage">
-            <small data-i18n="orchestrateTier3Label">AgentRail value</small>
-            <p data-i18n="orchestrateTier3Body">Instead of one fragile agent doing everything, AgentRail lets you combine orchestration and specialist workers into a system that can plan, implement, test, review, recover from failure, and resume safely with operator control.</p>
+            <small data-i18n="orchestrateTier3Label">Operator control</small>
+            <p data-i18n="orchestrateTier3Body">When a task fails or needs judgment, the blocked state, retry count, changed files, and checks remain visible enough to resume or stop cleanly.</p>
           </div>
         </div>
       </div>
@@ -333,49 +381,62 @@
     </section>
 
     <div class="footer" data-i18n="footer">Official public host: https://www.agentrail.tech/ · HTTPS is live · Release, install, self-use notes, and domain-handling pages are all online.</div>
+    </main>
   </div>
 
   <script>
     const translations = {
       en: {
-        eyebrow: 'Official Product Site · English Default',
-        heroTitle: 'Put multi-agent delivery on rails.',
-        heroCopy: 'AgentRail turns routing rules, prompts, and model calls into a recoverable execution system with explicit stage transitions, artifact trails, clean blocked states, and operator recovery controls. This public site is currently maintained as a personal-use install, release, and SOP hub for testing AgentRail on my own workflows.',
-        ctaInstall: 'Open Install Center', ctaRelease: 'Open Release Center', ctaPricing: 'View Self-use Notes',
-        oneLineLabel: 'One-line install', publicHostLabel: 'Public host',
-        metric1Title: 'Recoverable', metric1Body: 'Failure paths are explicit, not hidden.',
-        metric2Title: 'Auditable', metric2Body: 'Artifacts, retries, and stage history stay visible.',
-        metric3Title: 'Installable', metric3Body: 'Public release assets and one-line install are live.',
-        metric4Title: 'Personal-use', metric4Body: 'The site documents my own install, release, and verification workflow.',
-        logicTitle: 'How it works', logic1: 'AgentRail receives the work item and routes it into a structured execution path.', logic2: 'Perpetual Engine enforces stage progression for planning, implementation, self-check, testing, review, retries, and blocked-state handling.', logic3: 'Operators can inspect summaries, resume blocked work, reset retries, and preserve a clean operational trail.',
+        eyebrow: 'Personal control room · English default',
+        heroTitle: 'AgentRail control room for agent work.',
+        heroCopy: 'AgentRail is my operating rail for assigning agent tasks, checking website changes, recording evidence, and publishing agentrail.tech only after install, release, and review paths are clean.',
+        ctaInstall: 'Open Install Center', ctaRelease: 'Open Release Center', ctaPricing: 'View Self-use SOP',
+        oneLineLabel: 'Operator command', publicHostLabel: 'Canonical host',
+        rail1Title: 'Intake', rail1Body: 'Goal, scope, repo, and acceptance criteria.',
+        rail2Title: 'Implement', rail2Body: 'Codex, Claude Code, or another worker updates the repo.',
+        rail3Title: 'Verify', rail3Body: 'Smoke tests, URL checks, artifacts, and review notes.',
+        rail4Title: 'Publish', rail4Body: 'Merge only when the evidence trail is clean.',
+        metric1Title: 'Workitem state', metric1Body: 'Every task has a stage, owner, and next action.',
+        metric2Title: 'Evidence trail', metric2Body: 'Checks, changed files, and notes stay attached.',
+        metric3Title: 'Release path', metric3Body: 'Install script, release page, and downloads stay verifiable.',
+        metric4Title: 'Personal-use', metric4Body: 'Built for my own agentrail.tech operating loop.',
+        logicTitle: 'How it works', logic1: 'Create a workitem with the target page, repo path, scope, risk level, and acceptance checks.', logic2: 'Run the worker through implementation, self-check, testing, review, retry, and blocked-state handling.', logic3: 'Publish only after the artifact trail explains what changed, what passed, and what still needs judgment.',
         navTitle: 'Primary paths', navInstall: 'Install Center', navRelease: 'Release Center', navPricing: 'Self-use notes', navDomain: 'Root-domain guide',
         insideTitle: 'What is included', inside1: 'Installable Hermes skill package', inside2: 'Perpetual Engine runtime', inside3: 'CLI, tests, examples, and mock demo flow', inside4: 'Release assets, manuals, and product overview PDFs', inside5: 'Operator controls and recovery workflow',
-        whyTitle: 'Why teams want it', whyBody: 'Most agent systems look impressive until they fail. AgentRail is built for the moment after failure: when you need explicit state, clear artifacts, controlled retries, safe blocked states, and an operator-friendly way back to forward progress.',
-        orchestrateTitle: 'Why Antigravity + Claude Code + Codex + OpenCode is so attractive', orchestrateTier1Label: 'Antigravity', orchestrateTier1Body: 'Use Antigravity as the orchestration surface or control-plane entrypoint. It gives teams a clean front door for task intake while AgentRail handles state, audit, retries, and operational discipline underneath.', orchestrateTier2Label: 'Claude Code / Codex / OpenCode', orchestrateTier2Body: 'Plug in the best coding worker for the job: Claude Code for deep iterative implementation, Codex for full-auto repo work and batch issue fixing, OpenCode for provider-agnostic autonomous coding and review loops.', orchestrateTier3Label: 'AgentRail value', orchestrateTier3Body: 'Instead of one fragile agent doing everything, AgentRail lets you combine orchestration and specialist workers into a system that can plan, implement, test, review, recover from failure, and resume safely with operator control.',
+        whyTitle: 'Problem it solves', whyBody: 'Agent work is easy to start and hard to trust. AgentRail gives each task a visible state, a recovery path, and enough evidence that I can decide whether a website update is ready to merge.',
+        orchestrateTitle: 'Where it fits', orchestrateTier1Label: 'Dispatch', orchestrateTier1Body: 'Use Antigravity or a similar surface to shape the request, then let AgentRail hold the workitem, scope, acceptance criteria, and next action.', orchestrateTier2Label: 'Workers', orchestrateTier2Body: 'Send implementation or review work to Codex, Claude Code, or OpenCode while keeping the state machine and evidence outside the worker chat thread.', orchestrateTier3Label: 'Operator control', orchestrateTier3Body: 'When a task fails or needs judgment, the blocked state, retry count, changed files, and checks remain visible enough to resume or stop cleanly.',
         valueTitle: 'What this unlocks in practice', value1Label: 'Parallel delivery', value1Body: 'Route separate workstreams to different coding agents without losing stage control, audit trails, or operator visibility.', value2Label: 'Best-tool routing', value2Body: 'Use Claude Code where reasoning depth matters, Codex where repository automation matters, and OpenCode where provider flexibility matters.', value3Label: 'Safer operations', value3Body: 'When any worker fails, AgentRail preserves failure boundaries, blocked states, retry counts, and resume paths instead of pretending everything succeeded.',
         pricingTitle: 'Current self-use status', priceTier1Label: 'Personal Beta', priceTier1Body: 'Used as a private workflow rail for checking, updating, and recording AgentRail website tasks.', priceTier2Label: 'Verification Path', priceTier2Body: 'Use the install script, release package, CLI doctor, tests, and demo flow before treating a change as ready.', priceTier3Label: 'Commercial paused', priceTier3Price: 'Paused', priceTier3Body: 'No payment, resale, customer onboarding, or commercial support flow is active on this site right now.',
         footer: 'Official public host: https://www.agentrail.tech/ · HTTPS is live · Release, install, self-use notes, and domain-handling pages are all online.'
       },
       zh: {
-        eyebrow: '官方网站 · 默认英文', heroTitle: '把多代理交付真正放到轨道上。', heroCopy: 'AgentRail 把路由规则、提示词和模型调用，变成一个可恢复、可追踪、可运营的执行系统：有明确阶段流转、有工件链、有阻塞状态，也有人工恢复控制。当前公开站点主要作为个人自用的安装、发布和 SOP 中心，用来测试我自己的 AgentRail 工作流。', ctaInstall: '打开安装中心', ctaRelease: '打开 Release 中心', ctaPricing: '查看自用说明', oneLineLabel: '一行安装', publicHostLabel: '正式公网域名', metric1Title: '可恢复', metric1Body: '失败路径是显式的，不是隐藏的。', metric2Title: '可审计', metric2Body: '工件、重试和阶段历史都可见。', metric3Title: '可安装', metric3Body: '公开发布资产和一行安装已上线。', metric4Title: '个人自用', metric4Body: '站点记录我自己的安装、发布和验证工作流。', logicTitle: '工作逻辑', logic1: 'AgentRail 接收工作项，并把它送入结构化执行路径。', logic2: 'Perpetual Engine 强制执行规划、实现、自检、测试、评审、重试与阻塞治理。', logic3: '操作员可以查看摘要、恢复阻塞任务、重置重试计数，并保留清晰操作轨迹。', navTitle: '主要入口', navInstall: '安装中心', navRelease: 'Release 中心', navPricing: '自用说明', navDomain: '根域名说明', insideTitle: '你会拿到什么', inside1: '可安装的 Hermes skill 包', inside2: 'Perpetual Engine runtime', inside3: 'CLI、测试、示例和 mock 演示流程', inside4: 'Release 资产、手册和产品介绍 PDF', inside5: 'Operator 控制与恢复流程', whyTitle: '为什么团队会想要它', whyBody: '大多数代理系统在正常时看起来都很聪明，真正暴露差距的是失败之后。AgentRail 专门为失败后的控制而设计：明确状态、清晰工件、可控重试、安全阻塞、以及让操作员重新恢复前进的路径。', orchestrateTitle: '为什么 Antigravity + Claude Code + Codex + OpenCode 很有吸引力', orchestrateTier1Label: 'Antigravity', orchestrateTier1Body: '把 Antigravity 当作 orchestration surface 或 control-plane entrypoint。它负责干净的任务入口，而 AgentRail 在底层负责状态、审计、重试和操作纪律。', orchestrateTier2Label: 'Claude Code / Codex / OpenCode', orchestrateTier2Body: '按任务接入最合适的 coding worker：Claude Code 适合深度迭代实现，Codex 适合 full-auto repo work 和批量修复，OpenCode 适合 provider-agnostic 的自主编码与 review 循环。', orchestrateTier3Label: 'AgentRail 价值', orchestrateTier3Body: '与其让一个脆弱的单 agent 包打天下，不如用 AgentRail 把 orchestration 和 specialist workers 组合成一个能规划、实现、测试、评审、失败恢复并可安全续跑的系统。', valueTitle: '它在实践中解锁什么', value1Label: '并行交付', value1Body: '把不同工作流路由给不同 coding agents，同时不丢失阶段控制、审计轨迹和 operator 可见性。', value2Label: '最佳工具路由', value2Body: 'Claude Code 用在需要深推理的地方，Codex 用在 repo 自动化最重要的地方，OpenCode 用在 provider 灵活性最重要的地方。', value3Label: '更安全的运行', value3Body: '任何 worker 失败时，AgentRail 都会保留失败边界、阻塞状态、重试计数和恢复路径，而不是假装任务已经成功。', pricingTitle: '当前自用状态', priceTier1Label: '个人 Beta', priceTier1Body: '作为私人任务轨道，用于检查、更新并记录 agentrail.tech 网站任务。', priceTier2Label: '验证路径', priceTier2Body: '先用安装脚本、release 包、CLI doctor、测试和 demo 流程确认改动。', priceTier3Label: '商业化暂停', priceTier3Price: '暂停', priceTier3Body: '当前没有支付、转售、客户 onboarding 或商业支持流程。', footer: '正式公网域名：https://www.agentrail.tech/ · HTTPS 已上线 · Release、安装、自用说明和域名说明页面均已可用。'
+        eyebrow: '个人控制台 · 中文模式', heroTitle: 'AgentRail：我的 agent 工作控制台。', heroCopy: 'AgentRail 是我给 agent 任务派单、检查网站改动、记录证据并发布 agentrail.tech 的操作轨道：只有安装、release 和复查路径干净后才合并。', ctaInstall: '打开安装中心', ctaRelease: '打开 Release 中心', ctaPricing: '查看自用 SOP', oneLineLabel: '操作命令', publicHostLabel: '正式域名', rail1Title: '任务录入', rail1Body: '目标、范围、仓库和验收标准。', rail2Title: '实现', rail2Body: '由 Codex、Claude Code 或其他 worker 更新仓库。', rail3Title: '验证', rail3Body: 'smoke test、URL 检查、工件和复查记录。', rail4Title: '发布', rail4Body: '只有证据链干净时才合并。', metric1Title: 'Workitem 状态', metric1Body: '每个任务都有阶段、负责人和下一步。', metric2Title: '证据链', metric2Body: '检查、改动文件和备注都挂在任务上。', metric3Title: '发布路径', metric3Body: '安装脚本、Release 页面和下载链接都可验证。', metric4Title: '个人自用', metric4Body: '服务我自己的 agentrail.tech 操作循环。', logicTitle: '工作逻辑', logic1: '创建 workitem，记录目标页面、仓库路径、范围、风险级别和验收检查。', logic2: '让 worker 经过实现、自检、测试、复查、重试和阻塞状态处理。', logic3: '只有工件链说明了改了什么、通过了什么、还需要判断什么，才进入发布。', navTitle: '主要入口', navInstall: '安装中心', navRelease: 'Release 中心', navPricing: '自用说明', navDomain: '根域名说明', insideTitle: '你会拿到什么', inside1: '可安装的 Hermes skill 包', inside2: 'Perpetual Engine runtime', inside3: 'CLI、测试、示例和 mock 演示流程', inside4: 'Release 资产、手册和产品介绍 PDF', inside5: 'Operator 控制与恢复流程', whyTitle: '它解决什么问题', whyBody: 'agent 工作很容易开始，但很难信任结果。AgentRail 给每个任务明确状态、恢复路径和足够证据，让我判断一次网站更新是否可以合并。', orchestrateTitle: '它放在哪里', orchestrateTier1Label: '派单', orchestrateTier1Body: '用 Antigravity 或类似入口整理需求，然后让 AgentRail 保存 workitem、范围、验收标准和下一步。', orchestrateTier2Label: '执行者', orchestrateTier2Body: '把实现或复查交给 Codex、Claude Code 或 OpenCode，同时把状态机和证据链放在 worker 聊天窗口之外。', orchestrateTier3Label: '人工控制', orchestrateTier3Body: '当任务失败或需要判断时，阻塞状态、重试次数、改动文件和检查结果仍然可见，可以安全续跑或停止。', valueTitle: '它在实践中解锁什么', value1Label: '并行交付', value1Body: '把不同工作流路由给不同 coding agents，同时不丢失阶段控制、审计轨迹和 operator 可见性。', value2Label: '最佳工具路由', value2Body: 'Claude Code 用在需要深推理的地方，Codex 用在 repo 自动化最重要的地方，OpenCode 用在 provider 灵活性最重要的地方。', value3Label: '更安全的运行', value3Body: '任何 worker 失败时，AgentRail 都会保留失败边界、阻塞状态、重试计数和恢复路径，而不是假装任务已经成功。', pricingTitle: '当前自用状态', priceTier1Label: '个人 Beta', priceTier1Body: '作为私人任务轨道，用于检查、更新并记录 agentrail.tech 网站任务。', priceTier2Label: '验证路径', priceTier2Body: '先用安装脚本、release 包、CLI doctor、测试和 demo 流程确认改动。', priceTier3Label: '商业化暂停', priceTier3Price: '暂停', priceTier3Body: '当前没有支付、转售、客户 onboarding 或商业支持流程。', footer: '正式公网域名：https://www.agentrail.tech/ · HTTPS 已上线 · Release、安装、自用说明和域名说明页面均已可用。'
       }
     };
 
     function setLanguage(lang) {
       const dict = translations[lang] || translations.en;
       document.documentElement.lang = lang;
-      document.body.dir = lang === 'ar' ? 'rtl' : 'ltr';
+      document.body.dir='ltr';
       document.querySelectorAll('[data-i18n]').forEach(el => {
         const key = el.dataset.i18n;
         if (dict[key]) el.textContent = dict[key];
       });
-      document.querySelectorAll('#lang-chips .chip').forEach(chip => chip.classList.toggle('active', chip.dataset.lang === lang));
+      document.querySelectorAll('#lang-chips .chip').forEach(chip => {
+        const active = chip.dataset.lang === lang;
+        chip.classList.toggle('active', active);
+        chip.setAttribute('aria-pressed', String(active));
+      });
     }
 
     function setTheme(theme) {
       document.body.classList.remove('theme-dark', 'theme-light', 'theme-sunset');
       document.body.classList.add(`theme-${theme}`);
-      document.querySelectorAll('#theme-chips .chip').forEach(chip => chip.classList.toggle('active', chip.dataset.theme === theme));
+      document.querySelectorAll('#theme-chips .chip').forEach(chip => {
+        const active = chip.dataset.theme === theme;
+        chip.classList.toggle('active', active);
+        chip.setAttribute('aria-pressed', String(active));
+      });
     }
 
     document.querySelectorAll('#lang-chips .chip').forEach(chip => chip.addEventListener('click', () => setLanguage(chip.dataset.lang)));

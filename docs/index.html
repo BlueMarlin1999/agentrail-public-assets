@@ -215,6 +215,7 @@
       .code { font-size: 13px; }
       .actions .btn { width: 100%; }
     }
+    @media (prefers-reduced-motion: reduce){*,*::before,*::after{transition:none!important;animation:none!important;scroll-behavior:auto!important}}
   </style>
 </head>
 <body class="theme-dark">
@@ -232,16 +233,16 @@
         <div class="control-group">
           <div class="control-label">Language</div>
           <div class="chips" id="lang-chips">
-            <button class="chip active" data-lang="en" aria-pressed="true">EN</button>
-            <button class="chip" data-lang="zh" aria-pressed="false">中文</button>
+            <button type="button" class="chip active" data-lang="en" aria-pressed="true">EN</button>
+            <button type="button" class="chip" data-lang="zh" aria-pressed="false">中文</button>
           </div>
         </div>
         <div class="control-group">
           <div class="control-label">Background</div>
           <div class="chips" id="theme-chips">
-            <button class="chip active" data-theme="dark" aria-pressed="true">Night</button>
-            <button class="chip" data-theme="light" aria-pressed="false">Light</button>
-            <button class="chip" data-theme="sunset" aria-pressed="false">Sunset</button>
+            <button type="button" class="chip active" data-theme="dark" aria-pressed="true">Night</button>
+            <button type="button" class="chip" data-theme="light" aria-pressed="false">Light</button>
+            <button type="button" class="chip" data-theme="sunset" aria-pressed="false">Sunset</button>
           </div>
         </div>
       </div>

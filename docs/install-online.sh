@@ -2,8 +2,8 @@
 set -euo pipefail
 
 PROFILE="${1-default}"
-if [[ ! "$PROFILE" =~ ^[A-Za-z0-9._-]+$ ]]; then
-  echo "Invalid profile name: $PROFILE (allowed chars: A-Z a-z 0-9 . _ -)" >&2
+if [[ ! "$PROFILE" =~ ^[A-Za-z0-9._-]+$ || "$PROFILE" == "." || "$PROFILE" == ".." ]]; then
+  echo "Invalid profile name: $PROFILE (allowed chars: A-Z a-z 0-9 . _ -, excluding . and ..)" >&2
   exit 1
 fi
 VERSION="v0.1.0-beta.1"
@@ -28,6 +28,7 @@ need_cmd() {
 }
 
 need_cmd curl
+need_cmd grep
 need_cmd tar
 need_cmd cp
 need_cmd mkdir
@@ -37,8 +38,15 @@ printf 'Release source: %s\n' "$RELEASE_BASE_URL"
 printf 'Downloading: %s\n' "$ARCHIVE_URL"
 
 mkdir -p "$EXTRACT_DIR"
-curl -fL --retry 3 --retry-delay 1 --connect-timeout 10 --max-time 120 "$ARCHIVE_URL" -o "$ARCHIVE_PATH"
-if tar -tzf "$ARCHIVE_PATH" | grep -qE '(^|/)\.\.(/|$)'; then
+CURL_RETRY_FLAGS=(--retry 3 --retry-delay 1 --connect-timeout 10 --max-time 120)
+CURL_HELP="$(curl --help all 2>/dev/null || true)"
+if grep -q -- '--retry-all-errors' <<<"$CURL_HELP"; then
+  CURL_RETRY_FLAGS+=(--retry-all-errors)
+fi
+curl -fL "${CURL_RETRY_FLAGS[@]}" "$ARCHIVE_URL" -o "$ARCHIVE_PATH"
+ARCHIVE_LIST="$TMP_DIR/archive-members.txt"
+tar -tzf "$ARCHIVE_PATH" > "$ARCHIVE_LIST"
+if grep -qE '(^/|(^|/)\.\.(/|$))' "$ARCHIVE_LIST"; then
   echo "Refusing to extract archive containing parent-traversal paths" >&2
   exit 1
 fi

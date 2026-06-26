@@ -35,6 +35,7 @@ curl -sS -o /dev/null -w "%{http_code}\n" \
   https://www.agentrail.tech/ \
   https://www.agentrail.tech/agentrail-install.html \
   https://www.agentrail.tech/release.html \
+  https://www.agentrail.tech/dispatch.html \
   https://www.agentrail.tech/agent-stack.html \
   https://www.agentrail.tech/skills.html \
   https://www.agentrail.tech/security.html \

@@ -127,7 +127,7 @@
     .hero, .card {
       background: var(--panel); border: 1px solid var(--line); border-radius: 28px; box-shadow: var(--shadow); backdrop-filter: blur(14px);
     }
-    .hero { padding: 30px; position: relative; overflow: hidden; }
+    .hero { padding: 34px; position: relative; overflow: hidden; }
     .hero::before {
       content: ""; position: absolute; inset: 0; pointer-events: none;
       background: linear-gradient(120deg, rgba(73,200,255,.10), transparent 36%, rgba(143,98,255,.08) 68%, transparent 100%);
@@ -139,20 +139,20 @@
       pointer-events: none;
     }
     .hero > * { position: relative; z-index: 1; }
-    .hero-layout { display: grid; grid-template-columns: minmax(0, 1fr) minmax(320px, 390px); gap: 28px; align-items: stretch; max-width: 100%; }
+    .hero-layout { display: grid; grid-template-columns: minmax(0, 1.08fr) minmax(330px, .92fr); gap: 30px; align-items: stretch; max-width: 100%; }
     .hero-content { min-width: 0; max-width: 100%; display: flex; flex-direction: column; justify-content: center; }
     .eyebrow {
       display: inline-flex; align-items: center; gap: 8px; padding: 8px 12px; border-radius: 999px;
       background: rgba(143, 241, 188, 0.1); color: var(--green); font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: .07em; line-height: 1.35; max-width: 100%;
     }
-    h1 { margin: 18px 0 14px; font-size: 64px; line-height: 1.02; max-width: 840px; overflow-wrap: break-word; }
+    h1 { margin: 18px 0 14px; font-size: 58px; line-height: 1.02; max-width: 820px; overflow-wrap: break-word; letter-spacing: 0; }
     .hero-copy { max-width: 730px; font-size: 18px; line-height: 1.72; color: var(--muted); overflow-wrap: break-word; }
     .actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 24px; }
     .btn {
       display: inline-flex; align-items: center; justify-content: center; gap: 8px; text-decoration: none;
       padding: 14px 18px; border-radius: 15px; font-weight: 900; border: 1px solid transparent; transition: transform .16s ease, box-shadow .16s ease, border-color .16s ease;
     }
-    .btn-primary { background: linear-gradient(135deg, var(--green), #cfffe0); color: #062516; }
+    .btn-primary { background: linear-gradient(135deg, var(--green), #cfffe0); color: #062516; box-shadow: 0 14px 34px rgba(55,243,208,.16); }
     .btn-secondary { background: linear-gradient(135deg, var(--cyan), #d6f4ff); color: #032236; }
     .btn-ghost { border-color: var(--line); background: rgba(255,255,255,.03); color: var(--text); }
     .btn:hover { transform: translateY(-1px); box-shadow: 0 16px 34px rgba(0,0,0,.18); }
@@ -163,6 +163,10 @@
       min-width: 0; max-width: 100%;
     }
     .code { white-space: pre-wrap; word-break: normal; overflow-wrap: anywhere; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; line-height: 1.65; color: #dff4ff; }
+    .operator-strip { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 10px; margin-top: 22px; padding: 10px; border: 1px solid rgba(255,255,255,.08); border-radius: 20px; background: rgba(2,8,20,.34); }
+    .operator-strip span { display: grid; gap: 4px; min-width: 0; padding: 12px; border-radius: 14px; background: rgba(255,255,255,.035); color: var(--muted); font-size: 12px; line-height: 1.35; }
+    .operator-strip strong { color: var(--text); font-size: 13px; line-height: 1.25; }
+    .operator-strip em { font-style: normal; }
     .rail-console { min-width: 0; max-width: 100%; border-radius: 24px; padding: 18px; background: linear-gradient(180deg, rgba(255,255,255,.075), rgba(255,255,255,.032)); border: 1px solid rgba(255,255,255,.10); box-shadow: inset 0 1px 0 rgba(255,255,255,.08), 0 24px 60px rgba(0,0,0,.24); }
     .console-top { display: flex; justify-content: space-between; gap: 12px; align-items: center; margin-bottom: 16px; color: var(--muted); font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: .08em; }
     .status-pill { color: #062516; background: linear-gradient(135deg, var(--green), #d9ffe8); border-radius: 999px; padding: 6px 9px; white-space: nowrap; }
@@ -174,7 +178,7 @@
 	    .rail-step.active { border-color: rgba(55,243,208,.34); background: rgba(55,243,208,.08); }
 	    .rail-step.active span { background: var(--green); }
 	    .console-code { margin-top: 14px; padding: 13px; border-radius: 16px; background: rgba(1,7,18,.72); border: 1px solid rgba(73,200,255,.14); color: #dff4ff; font: 12px/1.6 ui-monospace, SFMono-Regular, Menlo, monospace; overflow-wrap: anywhere; }
-	    .media-placeholder { margin-top: 14px; min-height: 96px; display: flex; align-items: center; justify-content: center; text-align: center; padding: 16px; border-radius: 16px; border: 1px dashed rgba(255,255,255,.22); background: rgba(255,255,255,.035); color: var(--muted); font-size: 13px; font-weight: 800; line-height: 1.5; }
+    .media-placeholder { margin-top: 14px; min-height: 96px; display: flex; align-items: center; justify-content: center; text-align: center; padding: 16px; border-radius: 16px; border: 1px solid rgba(73,200,255,.18); background: linear-gradient(180deg,rgba(73,200,255,.07),rgba(255,255,255,.028)); color: var(--muted); font-size: 13px; font-weight: 800; line-height: 1.5; }
 	    .grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 18px; margin-top: 18px; }
     .card { min-width: 0; padding: 24px; transition: border-color .16s ease, transform .16s ease; }
     .card:hover { border-color: rgba(73,200,255,.34); transform: translateY(-1px); }
@@ -189,7 +193,7 @@
     p, li { color: var(--muted); line-height: 1.75; }
     .metric-row { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 12px; margin-top: 18px; }
     .metric {
-      padding: 16px; border-radius: 18px; background: linear-gradient(180deg, rgba(255,255,255,.035), rgba(255,255,255,.02)); border: 1px solid rgba(255,255,255,.07);
+      padding: 16px; border-radius: 18px; background: linear-gradient(180deg, rgba(73,200,255,.05), rgba(255,255,255,.018)); border: 1px solid rgba(255,255,255,.07);
     }
     .metric strong { display: block; font-size: 20px; color: var(--text); margin-bottom: 6px; }
     .list { padding-left: 18px; margin: 0; }
@@ -201,7 +205,7 @@
     @media (max-width: 980px) {
       .topbar { flex-direction: column; align-items: stretch; }
       .top-controls { justify-content: flex-start; }
-      .hero-layout, .hero-grid, .pricing, .metric-row { grid-template-columns: 1fr; }
+      .hero-layout, .hero-grid, .pricing, .metric-row, .operator-strip { grid-template-columns: 1fr; }
       .grid { grid-template-columns: 1fr; }
       .span-4, .span-5, .span-6, .span-7, .span-8, .span-12 { grid-column: span 1; }
       .hero { padding: 24px; }
@@ -210,7 +214,7 @@
     @media (max-width: 560px) {
       .wrap { padding: 18px 14px 44px; }
       .hero { padding: 20px; }
-      .hero-content, .hero-grid, .actions, .rail-console, .metric-row { width: 100%; max-width: 300px; }
+      .hero-content, .hero-grid, .actions, .rail-console, .metric-row, .operator-strip { width: 100%; max-width: 300px; }
       .hero-panel, .metric { max-width: 300px; }
       .eyebrow { border-radius: 16px; font-size: 11px; }
       h1 { font-size: 30px; max-width: 13ch; }
@@ -258,6 +262,12 @@
 	          <div class="eyebrow" data-i18n="eyebrow">Personal Beta · Control room</div>
 	          <h1 data-i18n="heroTitle">AgentRail is my control rail for coding agents.</h1>
 	          <p class="hero-copy" data-i18n="heroCopy">It helps one operator dispatch Codex, Claude Code, Copilot, and other workers without losing scope, checks, evidence, or the final publish decision.</p>
+	          <div class="operator-strip" aria-label="AgentRail operating loop">
+	            <span><strong data-i18n="strip1Title">Brief</strong><em data-i18n="strip1Body">One clear goal</em></span>
+	            <span><strong data-i18n="strip2Title">Dispatch</strong><em data-i18n="strip2Body">Right worker, right scope</em></span>
+	            <span><strong data-i18n="strip3Title">Verify</strong><em data-i18n="strip3Body">Checks and evidence</em></span>
+	            <span><strong data-i18n="strip4Title">Decide</strong><em data-i18n="strip4Body">Human publish gate</em></span>
+	          </div>
           <div class="actions">
             <a class="btn btn-primary" href="./agentrail-install.html" data-i18n="ctaInstall">Open Install Center</a>
             <a class="btn btn-secondary" href="./dispatch.html" data-i18n="ctaDispatch">Generate Dispatch Packet</a>
@@ -438,6 +448,7 @@
 	        heroCopy: 'It helps one operator dispatch Codex, Claude Code, Copilot, and other workers without losing scope, checks, evidence, or the final publish decision.',
 	        ctaInstall: 'Open Install Center', ctaRelease: 'Open Release Center', ctaDispatch: 'Generate Dispatch Packet', ctaStack: 'View Agent Stack', ctaSecurity: 'Open Security Rail', ctaPricing: 'View Self-use SOP',
 	        oneLineLabel: 'Quickstart', quickstartLink: 'Full install, downloads, checksums, and verification commands', publicHostLabel: 'Canonical host',
+	        strip1Title: 'Brief', strip1Body: 'One clear goal', strip2Title: 'Dispatch', strip2Body: 'Right worker, right scope', strip3Title: 'Verify', strip3Body: 'Checks and evidence', strip4Title: 'Decide', strip4Body: 'Human publish gate',
 	        rail1Title: 'Intake', rail1Body: 'Goal, scope, repo, and acceptance criteria.',
 	        rail2Title: 'Implement', rail2Body: 'Codex, Claude Code, Copilot, or another worker updates the repo.',
 	        rail3Title: 'Verify', rail3Body: 'Smoke tests, URL checks, artifacts, and review notes.',
@@ -460,7 +471,7 @@
         footer: 'Official public host: https://www.agentrail.tech/ · HTTPS is live · Dispatch, release, install, self-use notes, and domain-handling pages are all online.'
       },
       zh: {
-	        eyebrow: '个人 Beta · 控制台', heroTitle: 'AgentRail：我的 coding agents 控制轨道。', heroCopy: '它帮助一个 operator 派发 Codex、Claude Code、Copilot 和其他 worker，同时不丢失范围、检查、证据和最终发布判断。', ctaInstall: '打开安装中心', ctaRelease: '打开 Release 中心', ctaDispatch: '生成派单包', ctaStack: '查看 Agent Stack', ctaSecurity: '打开安全轨道', ctaPricing: '查看自用 SOP', oneLineLabel: 'Quickstart', quickstartLink: '完整安装、下载、校验和验证命令', publicHostLabel: '正式域名', rail1Title: '任务录入', rail1Body: '目标、范围、仓库和验收标准。', rail2Title: '实现', rail2Body: '由 Codex、Claude Code、Copilot 或其他 worker 更新仓库。', rail3Title: '验证', rail3Body: 'smoke test、URL 检查、工件和复查记录。', rail4Title: '发布', rail4Body: '只有证据链干净时才合并。', mediaPlaceholder: '控制台截图或 demo GIF 占位', metric1Title: 'Workitem 状态', metric1Body: '每个任务都有阶段、负责人和下一步。', metric2Title: '证据链', metric2Body: '检查、改动文件和备注都挂在任务上。', metric3Title: '发布路径', metric3Body: '安装脚本、Release 页面和下载链接都可验证。', metric4Title: '个人自用', metric4Body: '服务我自己的 agentrail.tech 操作循环。', logicTitle: '工作逻辑', logic1: '创建 workitem，记录目标页面、仓库路径、范围、风险级别和验收检查。', logic2: '让 worker 经过实现、自检、测试、复查、重试和阻塞状态处理。', logic3: '只有工件链说明了改了什么、通过了什么、还需要判断什么，才进入发布。', navTitle: '主要入口', navInstall: '安装中心', navRelease: 'Release 中心', navDispatch: '派单生成器', navStack: 'Agent Stack 地图', navSkills: 'Skills 和指令', navSecurity: '安全轨道', navChangelog: 'Changelog', navPricing: '自用说明', navDomain: '根域名说明', insideTitle: '你会拿到什么', inside1: '可安装的 Hermes skill 包', inside2: 'Perpetual Engine runtime', inside3: 'CLI、测试、示例和 mock 演示流程', inside4: 'Release 资产、手册和产品介绍 PDF', inside5: 'Operator 控制与恢复流程', whyTitle: '它解决什么问题', whyBody: 'agent 工作很容易开始，但很难信任结果。AgentRail 给每个任务明确状态、恢复路径和足够证据，让我判断一次网站更新是否可以合并。', trendTitle: '为什么现在重要', trend1Label: 'Agents 进入交付现场', trend1Body: 'Codex、Claude Code 和 Copilot 正在更靠近 GitHub issues、PR、本地 CLI 和云端工作区。operator 需要一条独立于这些会话之外的控制轨道。', trend2Label: 'Skills 变成可复用资产', trend2Body: 'AGENTS.md、Claude Skills、Codex 工作流和 MCP 都指向可复用指令与工具边界，而不是一次性 prompt。', trend3Label: '安全变成产品本身', trend3Body: '当 agents 可以改文件、开 PR 时，prompt injection、工具权限、密钥和分支保护比速度更重要。', aboutTitle: '关于', aboutBody: 'AgentRail 由 BlueMarlin1999 维护，当前作为 agentrail.tech 检查和更新的个人 Beta 工作流。', glossaryTitle: '术语表', glossaryHermes: 'Hermes skill：可安装的包，让 AgentRail 接入 Hermes operator 环境。', glossaryEngine: 'Perpetual Engine：本地 runtime 和 CLI，用来保存 workitem 状态、检查、重试和工件记录。', glossaryWorkitem: 'workitem：一个被跟踪的工作单元，包含目标、范围、验收检查、状态和证据。', orchestrateTitle: '它放在哪里', orchestrateTier1Label: '派单', orchestrateTier1Body: '用 Antigravity 或类似入口整理需求，然后让 AgentRail 保存 workitem、范围、验收标准和下一步。', orchestrateTier2Label: '执行者', orchestrateTier2Body: '把实现或复查交给 Codex、Claude Code 或 OpenCode，同时把状态机和证据链放在 worker 聊天窗口之外。', orchestrateTier3Label: '人工控制', orchestrateTier3Body: '当任务失败或需要判断时，阻塞状态、重试次数、改动文件和检查结果仍然可见，可以安全续跑或停止。', valueTitle: '它在实践中解锁什么', value1Label: '并行交付', value1Body: '把不同工作流路由给不同 coding agents，同时不丢失阶段控制、审计轨迹和 operator 可见性。', value2Label: '最佳工具路由', value2Body: 'Claude Code 用在需要深推理的地方，Codex 用在 repo 自动化最重要的地方，OpenCode 用在 provider 灵活性最重要的地方。', value3Label: '更安全的运行', value3Body: '任何 worker 失败时，AgentRail 都会保留失败边界、阻塞状态、重试计数和恢复路径，而不是假装任务已经成功。', pricingTitle: '当前自用状态', priceTier1Label: '个人 Beta', priceTier1Body: '作为私人任务轨道，用于检查、更新并记录 agentrail.tech 网站任务。', priceTier2Label: '验证路径', priceTier2Body: '先用安装脚本、release 包、CLI doctor、测试和 demo 流程确认改动。', priceTier3Label: '商业化暂停', priceTier3Price: '暂停', priceTier3Body: '当前没有支付、转售、客户 onboarding 或商业支持流程。', footer: '正式公网域名：https://www.agentrail.tech/ · HTTPS 已上线 · 派单、Release、安装、自用说明和域名说明页面均已可用。'
+	        eyebrow: '个人 Beta · 控制台', heroTitle: 'AgentRail：我的 coding agents 控制轨道。', heroCopy: '它帮助一个 operator 派发 Codex、Claude Code、Copilot 和其他 worker，同时不丢失范围、检查、证据和最终发布判断。', ctaInstall: '打开安装中心', ctaRelease: '打开 Release 中心', ctaDispatch: '生成派单包', ctaStack: '查看 Agent Stack', ctaSecurity: '打开安全轨道', ctaPricing: '查看自用 SOP', oneLineLabel: 'Quickstart', quickstartLink: '完整安装、下载、校验和验证命令', publicHostLabel: '正式域名', strip1Title: '整理', strip1Body: '一个清楚目标', strip2Title: '派单', strip2Body: '合适 worker 与范围', strip3Title: '验证', strip3Body: '检查和证据', strip4Title: '判断', strip4Body: '人工发布闸门', rail1Title: '任务录入', rail1Body: '目标、范围、仓库和验收标准。', rail2Title: '实现', rail2Body: '由 Codex、Claude Code、Copilot 或其他 worker 更新仓库。', rail3Title: '验证', rail3Body: 'smoke test、URL 检查、工件和复查记录。', rail4Title: '发布', rail4Body: '只有证据链干净时才合并。', mediaPlaceholder: '控制台截图或 demo GIF 占位', metric1Title: 'Workitem 状态', metric1Body: '每个任务都有阶段、负责人和下一步。', metric2Title: '证据链', metric2Body: '检查、改动文件和备注都挂在任务上。', metric3Title: '发布路径', metric3Body: '安装脚本、Release 页面和下载链接都可验证。', metric4Title: '个人自用', metric4Body: '服务我自己的 agentrail.tech 操作循环。', logicTitle: '工作逻辑', logic1: '创建 workitem，记录目标页面、仓库路径、范围、风险级别和验收检查。', logic2: '让 worker 经过实现、自检、测试、复查、重试和阻塞状态处理。', logic3: '只有工件链说明了改了什么、通过了什么、还需要判断什么，才进入发布。', navTitle: '主要入口', navInstall: '安装中心', navRelease: 'Release 中心', navDispatch: '派单生成器', navStack: 'Agent Stack 地图', navSkills: 'Skills 和指令', navSecurity: '安全轨道', navChangelog: 'Changelog', navPricing: '自用说明', navDomain: '根域名说明', insideTitle: '你会拿到什么', inside1: '可安装的 Hermes skill 包', inside2: 'Perpetual Engine runtime', inside3: 'CLI、测试、示例和 mock 演示流程', inside4: 'Release 资产、手册和产品介绍 PDF', inside5: 'Operator 控制与恢复流程', whyTitle: '它解决什么问题', whyBody: 'agent 工作很容易开始，但很难信任结果。AgentRail 给每个任务明确状态、恢复路径和足够证据，让我判断一次网站更新是否可以合并。', trendTitle: '为什么现在重要', trend1Label: 'Agents 进入交付现场', trend1Body: 'Codex、Claude Code 和 Copilot 正在更靠近 GitHub issues、PR、本地 CLI 和云端工作区。operator 需要一条独立于这些会话之外的控制轨道。', trend2Label: 'Skills 变成可复用资产', trend2Body: 'AGENTS.md、Claude Skills、Codex 工作流和 MCP 都指向可复用指令与工具边界，而不是一次性 prompt。', trend3Label: '安全变成产品本身', trend3Body: '当 agents 可以改文件、开 PR 时，prompt injection、工具权限、密钥和分支保护比速度更重要。', aboutTitle: '关于', aboutBody: 'AgentRail 由 BlueMarlin1999 维护，当前作为 agentrail.tech 检查和更新的个人 Beta 工作流。', glossaryTitle: '术语表', glossaryHermes: 'Hermes skill：可安装的包，让 AgentRail 接入 Hermes operator 环境。', glossaryEngine: 'Perpetual Engine：本地 runtime 和 CLI，用来保存 workitem 状态、检查、重试和工件记录。', glossaryWorkitem: 'workitem：一个被跟踪的工作单元，包含目标、范围、验收检查、状态和证据。', orchestrateTitle: '它放在哪里', orchestrateTier1Label: '派单', orchestrateTier1Body: '用 Antigravity 或类似入口整理需求，然后让 AgentRail 保存 workitem、范围、验收标准和下一步。', orchestrateTier2Label: '执行者', orchestrateTier2Body: '把实现或复查交给 Codex、Claude Code 或 OpenCode，同时把状态机和证据链放在 worker 聊天窗口之外。', orchestrateTier3Label: '人工控制', orchestrateTier3Body: '当任务失败或需要判断时，阻塞状态、重试次数、改动文件和检查结果仍然可见，可以安全续跑或停止。', valueTitle: '它在实践中解锁什么', value1Label: '并行交付', value1Body: '把不同工作流路由给不同 coding agents，同时不丢失阶段控制、审计轨迹和 operator 可见性。', value2Label: '最佳工具路由', value2Body: 'Claude Code 用在需要深推理的地方，Codex 用在 repo 自动化最重要的地方，OpenCode 用在 provider 灵活性最重要的地方。', value3Label: '更安全的运行', value3Body: '任何 worker 失败时，AgentRail 都会保留失败边界、阻塞状态、重试计数和恢复路径，而不是假装任务已经成功。', pricingTitle: '当前自用状态', priceTier1Label: '个人 Beta', priceTier1Body: '作为私人任务轨道，用于检查、更新并记录 agentrail.tech 网站任务。', priceTier2Label: '验证路径', priceTier2Body: '先用安装脚本、release 包、CLI doctor、测试和 demo 流程确认改动。', priceTier3Label: '商业化暂停', priceTier3Price: '暂停', priceTier3Body: '当前没有支付、转售、客户 onboarding 或商业支持流程。', footer: '正式公网域名：https://www.agentrail.tech/ · HTTPS 已上线 · 派单、Release、安装、自用说明和域名说明页面均已可用。'
       }
     };
 
